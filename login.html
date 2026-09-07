@@ -330,48 +330,6 @@
           </button>
         </form>
 
-        <!-- ⚡ 1-Click Instant Demo Logins -->
-        <div class="quick-demo-section">
-          <div class="quick-demo-title">
-            <span>⚡ 1-Click Instant Demo Access</span>
-            <span style="font-size:0.72rem; color:var(--primary); font-weight:600;">No typing needed</span>
-          </div>
-
-          <div class="demo-login-grid">
-            <button type="button" class="demo-quick-btn" onclick="directRoleLogin('doctor', 'Dr. Rajesh Varma')">
-              <span class="demo-emoji">👨‍⚕️</span>
-              <div>
-                <strong>Dr. Rajesh Varma</strong>
-                <small>Cardiology Specialist</small>
-              </div>
-            </button>
-
-            <button type="button" class="demo-quick-btn" onclick="directRoleLogin('admin', 'Super Administrator')">
-              <span class="demo-emoji">👨‍💼</span>
-              <div>
-                <strong>Board Administrator</strong>
-                <small>Master Governance Control</small>
-              </div>
-            </button>
-
-            <button type="button" class="demo-quick-btn" onclick="directRoleLogin('patient', 'Amina Khatun')">
-              <span class="demo-emoji">👤</span>
-              <div>
-                <strong>Amina Khatun</strong>
-                <small>Patient Aid Applicant</small>
-              </div>
-            </button>
-
-            <button type="button" class="demo-quick-btn" onclick="directRoleLogin('volunteer', 'Dr. Sameer Siddiqui')">
-              <span class="demo-emoji">🤝</span>
-              <div>
-                <strong>Volunteer Coordinator</strong>
-                <small>Field Logistics Desk</small>
-              </div>
-            </button>
-          </div>
-        </div>
-
       </div>
 
       <!-- Security Badges Footer -->
@@ -406,37 +364,41 @@
         identifierLabel: 'Doctor ID or Medical Email',
         identifierPlaceholder: 'e.g. DOC-101 or dr.varma@jcfhealthcare.org',
         defaultVal: 'DOC-101',
+        defaultPass: 'Doctor@2026',
         btnText: 'Sign In to Doctor Panel →',
         dashUrl: 'pages/doctor-dashboard.html'
       },
       admin: {
-        title: 'Administrative Board Governance',
-        desc: 'Master management for patient approvals, volunteer roster, and broadcast dispatches.',
+        title: 'Board Administrator Portal',
+        desc: 'Full governance, medical aid grants approval, doctor roster, and AI clinical sandbox.',
         bannerClass: 'banner-admin',
-        identifierLabel: 'Administrator Email or Master ID',
+        identifierLabel: 'Admin Email or Security Key',
         identifierPlaceholder: 'e.g. admin@jcfhealthcare.org',
         defaultVal: 'admin@jcfhealthcare.org',
-        btnText: 'Sign In to Admin Dashboard →',
+        defaultPass: 'Admin@2026',
+        btnText: 'Sign In as Administrator →',
         dashUrl: 'pages/admin-dashboard.html'
       },
       patient: {
-        title: 'Patient & Beneficiary Aid Portal',
-        desc: 'Track support application status, view assigned doctor notes, and pharmacy vouchers.',
+        title: 'Patient & Beneficiary Portal',
+        desc: 'View approved aid grants, medicine vouchers, live OPD queue, and doctor tele-consults.',
         bannerClass: 'banner-patient',
-        identifierLabel: 'Patient Reference ID or Registered Phone',
-        identifierPlaceholder: 'e.g. JCF-PAT-7814 or +91 98765 43210',
+        identifierLabel: 'Beneficiary ID or Registered Mobile',
+        identifierPlaceholder: 'e.g. JCF-PAT-7814 or +91 98100 22334',
         defaultVal: 'JCF-PAT-7814',
+        defaultPass: 'Patient@2026',
         btnText: 'Sign In to Patient Portal →',
         dashUrl: 'pages/patient-dashboard.html'
       },
       volunteer: {
-        title: 'Volunteer Heroes Field Desk',
-        desc: 'Manage aid deliveries, blood donor alerts, and community health camps.',
+        title: 'Volunteer Coordinator Desk',
+        desc: 'Coordinate medicine deliveries, patient home visits, and camp logistics.',
         bannerClass: 'banner-volunteer',
         identifierLabel: 'Volunteer ID or Email',
-        identifierPlaceholder: 'e.g. JCF-VOL-1044 or volunteer@example.com',
-        defaultVal: 'JCF-VOL-1044',
-        btnText: 'Sign In to Volunteer Panel →',
+        identifierPlaceholder: 'e.g. VOL-1044 or sameer.s@jcfhealthcare.org',
+        defaultVal: 'VOL-1044',
+        defaultPass: 'Volunteer@2026',
+        btnText: 'Sign In to Volunteer Desk →',
         dashUrl: 'pages/volunteer-dashboard.html'
       }
     };
@@ -456,6 +418,11 @@
       const input = document.getElementById('login-identifier');
       input.placeholder = cfg.identifierPlaceholder;
       input.value = cfg.defaultVal;
+
+      const passInput = document.getElementById('login-password');
+      if (passInput) {
+        passInput.value = cfg.defaultPass;
+      }
 
       document.getElementById('btn-login-submit').textContent = cfg.btnText;
     }
