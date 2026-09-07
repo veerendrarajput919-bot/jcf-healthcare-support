@@ -1128,6 +1128,11 @@ button, input, select, textarea {
   z-index: 2;
 }
 
+.hero-img-overlay-card > div:nth-child(2),
+.pill-text {
+  min-width: 0;
+}
+
 .hero-overlay-icon {
   font-size: 1.75rem;
 }
@@ -1180,7 +1185,7 @@ button, input, select, textarea {
 }
 
 .pill-2 {
-  bottom: 20px;
+  top: 88px;
   right: -12px;
   animation-delay: 2s;
 }
@@ -1202,6 +1207,7 @@ button, input, select, textarea {
 .pill-text span {
   font-size: 0.75rem;
   color: var(--text-muted);
+  overflow-wrap: anywhere;
 }
 
 @keyframes floatSlow {
