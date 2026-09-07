@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Master Administration & Governance Portal - JCF Healthcare Support</title>
+  <meta name="description" content="JCF Healthcare Admin Dashboard. Master governance control for patient approvals, specialist rosters, relief logistics, and analytics.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/>
+  <path d="M12 7v6M9 10h6"/>
+</svg>">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .admin-standalone-layout {
+      min-height: 100vh;
+      display: flex;
+      background: #f1f5f9;
+    }
+    .admin-side-nav {
+      width: 280px;
+      background: var(--dark-navy);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .admin-brand-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .admin-nav-links-box {
+      padding: 1rem 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex-grow: 1;
+    }
+    .admin-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      color: #cbd5e1;
+      font-size: 0.88rem;
+      font-weight: 600;
+      background: transparent;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .admin-menu-item:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+    }
+    .admin-menu-item.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 4px 12px var(--primary-glow);
+    }
+    .admin-badge-count {
+      margin-left: auto;
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+      font-size: 0.72rem;
+    }
+    .admin-main-stage {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+    .admin-stage-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 40;
+    }
+    .admin-stage-content {
+      padding: 2rem;
+      flex-grow: 1;
+    }
+    .adm-pane {
+      display: none;
+    }
+    .adm-pane.active {
+      display: block;
+      animation: fadeIn 0.2s ease-in-out;
+    }
+    @media (max-width: 1024px) {
+      .admin-side-nav { width: 220px; }
+      .admin-stage-content { padding: 1.25rem; }
+    }
+  </style>
+</head>
+<body class="admin-standalone-layout">
+
+  <!-- Left Sidebar Navigation -->
+  <aside class="admin-side-nav">
+    <div class="admin-brand-header">
+      <div class="logo-icon-box" style="width:36px; height:36px; font-size:1.1rem;">🏛️</div>
+      <div>
+        <strong style="display:block; font-size:0.95rem; color:#fff;">JCF Governance</strong>
+        <span style="font-size:0.72rem; color:var(--primary); font-weight:700;">Super Administrator</span>
+      </div>
+    </div>
+
+    <div class="admin-nav-links-box">
+      <button type="button" class="admin-menu-item active" onclick="switchAdmTab('dash')" id="tab-adm-dash">
+        <span>📊</span> Dashboard Overview
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('patients')" id="tab-adm-patients">
+        <span>👥</span> Patient Requests <span class="admin-badge-count" id="adm-badge-pat">4</span>
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('doctors')" id="tab-adm-doctors">
+        <span>👨‍⚕️</span> Specialists Directory <span class="admin-badge-count">4</span>
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('volunteers')" id="tab-adm-volunteers">
+        <span>🤝</span> Volunteer Roster <span class="admin-badge-count" id="adm-badge-vol">4</span>
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('appointments')" id="tab-adm-appointments">
+        <span>📅</span> Doctor Appointments <span class="admin-badge-count" id="adm-badge-apt">4</span>
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('inquiries')" id="tab-adm-inquiries">
+        <span>💬</span> Contact Inquiries <span class="admin-badge-count" id="adm-badge-inq">2</span>
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('faqs')" id="tab-adm-faqs">
+        <span>📚</span> FAQ Knowledge Base
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('ai-triage')" id="tab-adm-ai-triage">
+        <span>🤖</span> AI Logs & Sandbox
+      </button>
+      <button type="button" class="admin-menu-item" onclick="switchAdmTab('reports')" id="tab-adm-reports">
+        <span>📈</span> Outreach Analytics
+      </button>
+    </div>
+
+    <div style="padding:1rem 1.25rem; border-top:1px solid rgba(255,255,255,0.1);">
+      <a href="../index.html" class="btn-outline-sm" style="width:100%; justify-content:center; color:#fff; border-color:rgba(255,255,255,0.2); margin-bottom:0.5rem;">🌐 View Public Website</a>
+      <button type="button" class="btn-outline-danger-sm" style="width:100%; justify-content:center;" onclick="logoutAdmin()">🚪 Sign Out</button>
+    </div>
+  </aside>
+
+  <!-- Main Stage Area -->
+  <div class="admin-main-stage">
+    
+    <!-- Topbar -->
+    <header class="admin-stage-topbar">
+      <div>
+        <h2 style="font-size:1.35rem; font-weight:800; color:var(--dark-navy);" id="adm-page-title">Dashboard Overview</h2>
+        <small style="color:var(--text-muted);">JCF Healthcare Support • Central NGO Governance Desk</small>
+      </div>
+
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <span style="font-size:0.85rem; font-weight:700; color:var(--primary); background:var(--primary-light); padding:4px 10px; border-radius:var(--radius-full);" id="adm-clock">11:30 AM</span>
+        <button type="button" class="btn-outline-sm" onclick="exportData()">💾 Export Data JSON</button>
+        <button type="button" class="btn-outline-danger-sm" onclick="resetDemo()">🔄 Reset Defaults</button>
+      </div>
+    </header>
+
+    <!-- Stage Content Area -->
+    <main class="admin-stage-content">
+      
+      <!-- TAB 1: DASHBOARD OVERVIEW -->
+      <div class="adm-pane active" id="pane-adm-dash">
+        
+        <!-- Emergency Alert Banner -->
+        <div class="admin-alert-banner" id="adm-emergency-banner" style="display:flex; margin-bottom:1.5rem;">
+          <span style="font-size:1.5rem;">🚨</span>
+          <div>
+            <strong>1 Critical Emergency Aid Application Pending Immediate Board Sanction!</strong>
+            <p style="font-size:0.82rem; margin:2px 0 0;">Case: Rohan Sharma (8yo Male, Mumbai) - Congenital Hernia Surgery Grant (₹45,000).</p>
+          </div>
+          <button type="button" class="btn-emergency-action" onclick="switchAdmTab('patients')">Take Action →</button>
+        </div>
+
+        <!-- KPI Grid -->
+        <div class="admin-kpi-grid" style="margin-bottom:2rem;">
+          <div class="admin-kpi-card">
+            <span class="kpi-label">Total Beneficiaries</span>
+            <div class="kpi-value" id="kpi-total-pat">120+</div>
+            <small style="color:var(--success-green); font-weight:700;">+14 this week</small>
+          </div>
+
+          <div class="admin-kpi-card">
+            <span class="kpi-label">Active Volunteers</span>
+            <div class="kpi-value" id="kpi-total-vol">42</div>
+            <small style="color:var(--primary); font-weight:700;">4 North Hubs</small>
+          </div>
+
+          <div class="admin-kpi-card">
+            <span class="kpi-label">Pending Triage</span>
+            <div class="kpi-value" style="color:var(--urgent-orange);" id="kpi-pending-req">7</div>
+            <small style="color:var(--urgent-orange); font-weight:700;">Under 24h review</small>
+          </div>
+
+          <div class="admin-kpi-card">
+            <span class="kpi-label">Doctor Appointments</span>
+            <div class="kpi-value" id="kpi-total-apt">38</div>
+            <small style="color:var(--doctor-blue); font-weight:700;">OPD + Video</small>
+          </div>
+        </div>
+
+        <!-- Dashboard Split Grid -->
+        <div class="admin-dash-grid">
+          
+          <!-- Urgent Triage Table -->
+          <div class="admin-card-panel">
+            <div class="admin-panel-header">
+              <h3>Priority Cases Requiring Action</h3>
+              <button type="button" class="btn-text-sm" onclick="switchAdmTab('patients')">View All →</button>
+            </div>
+            
+            <div class="admin-table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Patient Name</th>
+                    <th>Aid Type</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="adm-priority-table-body">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Activity Feed -->
+          <div class="admin-card-panel">
+            <div class="admin-panel-header">
+              <h3>Live Activity Feed</h3>
+            </div>
+            <div class="activity-feed" id="adm-activity-feed-box">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- TAB 2: PATIENTS MANAGEMENT -->
+      <div class="adm-pane" id="pane-adm-patients">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>Patient Support Requests Master Roster</h3>
+          </div>
+
+          <div class="admin-table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Ref ID</th>
+                  <th>Patient Details</th>
+                  <th>Requested Aid</th>
+                  <th>City</th>
+                  <th>Priority</th>
+                  <th>Status</th>
+                  <th>Assigned Volunteer</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adm-patients-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 3: DOCTORS DIRECTORY -->
+      <div class="adm-pane" id="pane-adm-doctors">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>Specialist Doctors & Medical Advisory Board</h3>
+          </div>
+          <div id="adm-doctors-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 4: VOLUNTEERS ROSTER -->
+      <div class="adm-pane" id="pane-adm-volunteers">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>Registered Volunteers Directory</h3>
+          </div>
+          <div class="admin-table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Vol ID</th>
+                  <th>Name & Contact</th>
+                  <th>Role</th>
+                  <th>City</th>
+                  <th>Status</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adm-volunteers-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: APPOINTMENTS -->
+      <div class="adm-pane" id="pane-adm-appointments">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>Consultation Appointments Central Schedule</h3>
+          </div>
+          <div class="admin-table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Apt ID</th>
+                  <th>Patient Name</th>
+                  <th>Doctor</th>
+                  <th>Department</th>
+                  <th>Date & Time</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="adm-appointments-table-body">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: INQUIRIES -->
+      <div class="adm-pane" id="pane-adm-inquiries">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>Contact Messages & Help Inquiries</h3>
+          </div>
+          <div id="adm-inquiries-container">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 7: FAQS -->
+      <div class="adm-pane" id="pane-adm-faqs">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>FAQ Knowledge Base & CareBot Answers</h3>
+          </div>
+          <div id="adm-faqs-container">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 8: AI TRIAGE SANDBOX -->
+      <div class="adm-pane" id="pane-adm-ai-triage">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>AI Clinical Triage Sandbox & Logs</h3>
+          </div>
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">Test the NLP/Triage model for summarizing patient aid applications.</p>
+          <div id="adm-ai-logs-list">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 9: REPORTS -->
+      <div class="adm-pane" id="pane-adm-reports">
+        <div class="admin-card-panel">
+          <div class="admin-panel-header">
+            <h3>Humanitarian Aid Relief Distribution Analytics</h3>
+            <button type="button" class="btn-outline-sm" onclick="window.print()">🖨️ Print Analytics</button>
+          </div>
+          <div class="reports-grid">
+            <div class="report-box">
+              <h4>Aid Distribution by Specialty Wing</h4>
+              <div class="chart-bar-row">
+                <span>Cardiology</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill" style="width: 38%;"></div></div>
+                <span>38%</span>
+              </div>
+              <div class="chart-bar-row">
+                <span>Medicine Bank</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill fill-teal" style="width: 28%;"></div></div>
+                <span>28%</span>
+              </div>
+              <div class="chart-bar-row">
+                <span>Pediatric Surgery</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill fill-purple" style="width: 20%;"></div></div>
+                <span>20%</span>
+              </div>
+              <div class="chart-bar-row">
+                <span>Free Diagnostics</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill fill-amber" style="width: 14%;"></div></div>
+                <span>14%</span>
+              </div>
+            </div>
+
+            <div class="report-box">
+              <h4>Case Resolution Performance</h4>
+              <div class="chart-bar-row">
+                <span>Approved & Dispatched</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill fill-green" style="width: 52%;"></div></div>
+                <span>52%</span>
+              </div>
+              <div class="chart-bar-row">
+                <span>Completed Consults</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill fill-teal" style="width: 32%;"></div></div>
+                <span>32%</span>
+              </div>
+              <div class="chart-bar-row">
+                <span>Pending Board Action</span>
+                <div class="chart-bar-track"><div class="chart-bar-fill fill-amber" style="width: 16%;"></div></div>
+                <span>16%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/storage.js"></script>
+  <script>
+    function switchAdmTab(tabId) {
+      document.querySelectorAll('.adm-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.admin-menu-item').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById('pane-adm-' + tabId)?.classList.add('active');
+      document.getElementById('tab-adm-' + tabId)?.classList.add('active');
+
+      const titles = {
+        dash: 'Dashboard Overview',
+        patients: 'Patient Support Requests Master Roster',
+        doctors: 'Specialists & Doctors Directory',
+        volunteers: 'Volunteers Roster & Verification',
+        appointments: 'Doctor Appointments Central',
+        inquiries: 'Contact Messages & Helpline Inbox',
+        faqs: 'FAQ Knowledge Management',
+        'ai-triage': 'AI Chatbot Logs & Clinical Sandbox',
+        reports: 'Healthcare Outreach Analytics'
+      };
+      document.getElementById('adm-page-title').textContent = titles[tabId] || 'Admin Governance';
+    }
+
+    function renderAdminStage() {
+      const stats = window.jcfStorage.getAdminStats();
+      const patients = window.jcfStorage.getPatientRequests();
+      const volunteers = window.jcfStorage.getVolunteers();
+      const doctors = window.jcfStorage.getDoctors();
+      const appointments = window.jcfStorage.getAppointments();
+      const inquiries = window.jcfStorage.getInquiries();
+      const faqs = window.jcfStorage.getFAQs();
+      const activities = window.jcfStorage.getActivities();
+
+      // Update badges
+      document.getElementById('adm-badge-pat').textContent = patients.length;
+      document.getElementById('adm-badge-vol').textContent = volunteers.length;
+      document.getElementById('adm-badge-apt').textContent = appointments.length;
+      document.getElementById('adm-badge-inq').textContent = inquiries.length;
+
+      // Update KPIs
+      document.getElementById('kpi-total-pat').textContent = stats.totalPatients || 4;
+      document.getElementById('kpi-total-vol').textContent = stats.totalVolunteers || 4;
+      document.getElementById('kpi-pending-req').textContent = stats.pendingRequests || 1;
+      document.getElementById('kpi-total-apt').textContent = stats.totalAppointments || 4;
+
+      // Priority Table
+      const prioTable = document.getElementById('adm-priority-table-body');
+      if (prioTable) {
+        prioTable.innerHTML = patients.slice(0, 5).map(p => `
+          <tr>
+            <td><strong>${p.id}</strong></td>
+            <td>${p.name} (${p.city})</td>
+            <td>${p.aidType}</td>
+            <td><span class="priority-pill priority-${p.priority.toLowerCase()}">${p.priority}</span></td>
+            <td><span class="status-badge status-${p.status.toLowerCase().replace(/\s+/g, '-')}">${p.status}</span></td>
+            <td><button type="button" class="btn-action-sm" onclick="alert('Managing case ${p.id}')">Manage</button></td>
+          </tr>
+        `).join('');
+      }
+
+      // Activity Feed
+      const feedBox = document.getElementById('adm-activity-feed-box');
+      if (feedBox) {
+        feedBox.innerHTML = activities.slice(0, 6).map(act => `
+          <div class="activity-feed-item">
+            <div class="activity-bullet bullet-${act.type}"></div>
+            <div class="activity-text">
+              <span>${act.text}</span>
+              <small>${act.time}</small>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Patients Master Table
+      const patTable = document.getElementById('adm-patients-table-body');
+      if (patTable) {
+        patTable.innerHTML = patients.map(p => `
+          <tr>
+            <td><strong>${p.id}</strong></td>
+            <td><strong>${p.name}</strong><br><small style="color:var(--text-muted);">${p.age}y • ${p.gender}</small></td>
+            <td>${p.aidType}<br><small style="color:var(--primary);">${p.department}</small></td>
+            <td>${p.city}</td>
+            <td><span class="priority-pill priority-${p.priority.toLowerCase()}">${p.priority}</span></td>
+            <td><span class="status-badge status-${p.status.toLowerCase().replace(/\s+/g, '-')}">${p.status}</span></td>
+            <td>${p.assignedVolunteerName || '— Unassigned —'}</td>
+            <td>
+              <button type="button" class="btn-action-sm" onclick="updatePatientStatusPrompt('${p.id}')">✏️ Action</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Doctors Grid
+      const docGrid = document.getElementById('adm-doctors-grid');
+      if (docGrid) {
+        docGrid.innerHTML = doctors.map(d => `
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle);">
+            <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.5rem;">
+              <span style="font-size:2rem;">👨‍⚕️</span>
+              <div>
+                <strong>${d.name}</strong>
+                <small style="display:block; color:var(--primary); font-weight:600;">${d.specialty}</small>
+              </div>
+            </div>
+            <p style="font-size:0.8rem; color:var(--text-muted);">${d.qualifications}</p>
+            <p style="font-size:0.8rem; color:var(--text-light); margin-top:4px;">${d.availableDays}</p>
+          </div>
+        `).join('');
+      }
+
+      // Volunteers Table
+      const volTable = document.getElementById('adm-volunteers-table-body');
+      if (volTable) {
+        volTable.innerHTML = volunteers.map(v => `
+          <tr>
+            <td><strong>${v.id}</strong></td>
+            <td><strong>${v.name}</strong><br><small style="color:var(--text-muted);">${v.phone}</small></td>
+            <td>${v.role}</td>
+            <td>${v.city}</td>
+            <td><span class="status-badge ${v.status.includes('Verified') ? 'status-approved' : 'status-pending'}">${v.status}</span></td>
+            <td>
+              ${v.status.includes('Verified') 
+                ? `<button type="button" class="btn-action-sm" onclick="toggleVolunteerVerify('${v.id}', false)">Set Pending</button>` 
+                : `<button type="button" class="btn-success-sm" onclick="toggleVolunteerVerify('${v.id}', true)">✓ Verify</button>`}
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Appointments Table
+      const aptTable = document.getElementById('adm-appointments-table-body');
+      if (aptTable) {
+        aptTable.innerHTML = appointments.map(a => `
+          <tr>
+            <td><strong>${a.id}</strong></td>
+            <td>${a.patientName}</td>
+            <td>${a.doctorName}</td>
+            <td>${a.department}</td>
+            <td>${a.date} (${a.time})</td>
+            <td><span class="status-badge status-${a.status.toLowerCase().replace(/\s+/g, '-')}">${a.status}</span></td>
+            <td>
+              <button type="button" class="btn-action-sm" onclick="updateAppointmentPrompt('${a.id}')">Update</button>
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      // Inquiries List
+      const inqBox = document.getElementById('adm-inquiries-container');
+      if (inqBox) {
+        inqBox.innerHTML = inquiries.map(i => `
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:1rem; margin-bottom:0.75rem; background:var(--bg-subtle);">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong>${i.name} (${i.email})</strong>
+              <span class="status-badge status-${i.status === 'Resolved' ? 'approved' : 'pending'}">${i.status}</span>
+            </div>
+            <p style="font-size:0.9rem; font-weight:600; margin:4px 0;">"${i.subject}"</p>
+            <p style="font-size:0.85rem; color:var(--text-muted);">"${i.message}"</p>
+            <div style="margin-top:0.5rem; display:flex; gap:0.5rem;">
+              <button type="button" class="btn-action-sm" onclick="resolveInquiry('${i.id}')">✓ Mark Resolved</button>
+              <a href="mailto:${i.email}?subject=Re: ${encodeURIComponent(i.subject)}" class="btn-outline-sm">✉️ Reply by Email</a>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // FAQs Management
+      const faqsBox = document.getElementById('adm-faqs-container');
+      if (faqsBox) {
+        faqsBox.innerHTML = `
+          <div style="margin-bottom:1.5rem; padding:1.25rem; background:var(--bg-subtle); border:1px solid #e2e8f0; border-radius:var(--radius-md);">
+            <h4 style="margin-bottom:0.75rem;">➕ Add New Knowledge Base FAQ</h4>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+              <input type="text" id="new-faq-q" class="form-input" placeholder="Question..." />
+              <input type="text" id="new-faq-cat" class="form-input" placeholder="Category (e.g. Medicines, Surgery)" />
+            </div>
+            <textarea id="new-faq-a" class="form-textarea" rows="2" placeholder="Answer text..."></textarea>
+            <button type="button" class="btn-primary-sm" style="margin-top:0.5rem;" onclick="addNewFAQ()">Add to AI Knowledge Base</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            ${faqs.map(f => `
+              <div style="border:1px solid #e2e8f0; border-radius:var(--radius-sm); padding:1rem; background:#ffffff; display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <strong>${f.question}</strong> <span style="font-size:0.75rem; background:var(--primary-light); color:var(--primary-hover); padding:2px 6px; border-radius:4px;">${f.category || 'General'}</span>
+                  <p style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${f.answer}</p>
+                </div>
+                <button type="button" class="btn-outline-danger-sm" onclick="deleteFAQAdmin('${f.id}')">🗑️ Delete</button>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+
+    function updatePatientStatusPrompt(patientId) {
+      const newStatus = prompt(`Update status for ${patientId} (Options: Approved, In Progress, Under Review, Completed, Rejected):`, 'Approved');
+      if (newStatus) {
+        window.jcfStorage.updatePatientStatus(patientId, newStatus, 'Status updated via Admin Governance Panel.');
+        alert(`Status for ${patientId} updated to ${newStatus}!`);
+        renderAdminStage();
+      }
+    }
+
+    function toggleVolunteerVerify(volId, verify) {
+      const newStatus = verify ? 'Verified & Active' : 'Pending Verification';
+      window.jcfStorage.updateVolunteerStatus(volId, newStatus);
+      alert(`Volunteer ${volId} updated to: ${newStatus}`);
+      renderAdminStage();
+    }
+
+    function updateAppointmentPrompt(aptId) {
+      const newStatus = prompt(`Update status for ${aptId} (Options: Confirmed, In Consultation, Completed, Cancelled):`, 'Completed');
+      if (newStatus) {
+        window.jcfStorage.updateAppointmentStatus(aptId, newStatus);
+        alert(`Appointment ${aptId} status updated to: ${newStatus}`);
+        renderAdminStage();
+      }
+    }
+
+    function resolveInquiry(inqId) {
+      window.jcfStorage.updateInquiryStatus(inqId, 'Resolved');
+      alert(`Inquiry ${inqId} marked as Resolved!`);
+      renderAdminStage();
+    }
+
+    function addNewFAQ() {
+      const q = document.getElementById('new-faq-q')?.value.trim();
+      const a = document.getElementById('new-faq-a')?.value.trim();
+      const cat = document.getElementById('new-faq-cat')?.value.trim() || 'General';
+
+      if (!q || !a) {
+        alert('Please provide both question and answer.');
+        return;
+      }
+
+      window.jcfStorage.addFAQ({ question: q, answer: a, category: cat });
+      alert('New FAQ added and synced to CareBot!');
+      renderAdminStage();
+    }
+
+    function deleteFAQAdmin(faqId) {
+      if (confirm(`Delete FAQ ${faqId}?`)) {
+        window.jcfStorage.deleteFAQ(faqId);
+        renderAdminStage();
+      }
+    }
+
+    function exportData() {
+      const dataStr = window.jcfStorage.exportDatabaseJSON();
+      const blob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `JCF_Healthcare_Backup_${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+    }
+
+    async function resetDemo() {
+      if (confirm('Reset entire local and backend database back to default seed records?')) {
+        window.jcfStorage.resetDemoData();
+        if (window.jcfAPI) {
+          try {
+            await window.jcfAPI.resetDatabase();
+          } catch (e) {}
+        }
+        alert('Database reset to defaults successfully.');
+        renderAdminStage();
+      }
+    }
+
+    function logoutAdmin() {
+      window.jcfStorage.logout();
+      window.location.href = '../login.html';
+    }
+
+    setInterval(() => {
+      const clock = document.getElementById('adm-clock');
+      if (clock) clock.textContent = new Date().toLocaleTimeString('en-IN');
+    }, 1000);
+
+    window.addEventListener('DOMContentLoaded', renderAdminStage);
+  </script>
+</body>
+</html>

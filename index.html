@@ -1,0 +1,2224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JCF Healthcare Support - Non-Profit Medical & Patient Aid Portal</title>
+  <meta name="description" content="JCF Healthcare Support is a dedicated non-profit NGO providing 100% free prescription medicines, pediatric surgery grants, emergency ambulances, and volunteer doctor consultations.">
+  <meta name="keywords" content="JCF Healthcare, NGO medical support, free medicines, patient aid, hospital surgery grant, emergency ambulance, volunteer doctor, tele-consultation">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==================== SITE HEADER & NAVIGATION ==================== -->
+  <header class="site-header" id="header">
+    <div class="container nav-wrapper">
+      <a href="#hero" class="brand-logo" aria-label="JCF Healthcare Support Home">
+        <div class="logo-icon-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+            <path d="M12 7v6"/>
+            <path d="M9 10h6"/>
+          </svg>
+        </div>
+        <div class="logo-text-group">
+          <span class="logo-title">JCF Healthcare</span>
+          <span class="logo-tag">Support & Care NGO</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Menu -->
+      <ul class="nav-menu">
+        <li><a href="#hero" class="nav-link">Home</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#departments" class="nav-link">Departments</a></li>
+        <li><a href="#services" class="nav-link">Programs</a></li>
+        <li><a href="#patient-form" class="nav-link">Patient Aid</a></li>
+        <li><a href="#volunteer-form" class="nav-link">Volunteer</a></li>
+        <li><a href="#faqs-section" class="nav-link">FAQs</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <!-- Action & Portal Group -->
+      <div class="nav-cta-group">
+        <!-- Live Status Tracker Button -->
+        <button type="button" class="btn-outline open-tracker-btn" title="Track your submitted application">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span>Track Status</span>
+        </button>
+
+        <!-- Notification Bell -->
+        <div class="nav-notif-wrapper">
+          <button type="button" class="nav-icon-btn" id="nav-notif-btn" aria-label="Notifications" title="View Notifications">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            <span class="notif-badge-pill" id="notif-badge-count">2</span>
+          </button>
+          
+          <!-- Dropdown Popover -->
+          <div class="notif-dropdown" id="notif-dropdown">
+            <div class="notif-dropdown-header">
+              <h4>System Alerts & Updates</h4>
+              <button type="button" class="btn-text-xs" id="mark-notifs-read-btn">Mark all read</button>
+            </div>
+            <div class="notif-list-body" id="nav-notif-list">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Role / Portal Access Button -->
+        <button type="button" class="btn-portal-select" id="open-auth-modal-btn" title="Open Portal Sign In Modal">
+          <span class="portal-user-badge" id="nav-user-badge">👤 Guest</span>
+          <span class="portal-btn-label">🔐 Login / Portals ▾</span>
+        </button>
+
+        <!-- Get Aid Primary Button -->
+        <a href="#patient-form" class="btn-primary hide-mobile">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          Get Patient Aid
+        </a>
+
+        <!-- Mobile Hamburger Toggle -->
+        <button type="button" class="nav-toggle-btn" id="nav-toggle-btn" aria-label="Toggle navigation menu">
+          ☰
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div class="mobile-nav" id="mobile-nav">
+      <ul class="mobile-nav-links">
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#departments">Departments</a></li>
+        <li><a href="#services">Featured Programs</a></li>
+        <li><a href="#patient-form">Patient Support Form</a></li>
+        <li><a href="#volunteer-form">Volunteer Registration</a></li>
+        <li><a href="#faqs-section">FAQs & Guide</a></li>
+        <li><a href="#contact">Contact & Helpline</a></li>
+        <li style="margin-top:0.75rem;"><button type="button" class="btn-outline open-tracker-btn" style="width:100%;">🔍 Track Status</button></li>
+        <li style="margin-top:0.5rem;"><a href="login.html" class="btn-primary" style="width:100%; justify-content:center; text-align:center;">🔐 All Panels Login Page</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="hero-section" id="hero">
+    <div class="container">
+      <div class="hero-grid">
+        <!-- Hero Left Column -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span>✨ 100% Non-Profit Humanitarian Healthcare Foundation</span>
+          </div>
+          <h1 class="hero-title">
+            Your Health, <br><span>Our Highest Priority</span>
+          </h1>
+          <p class="hero-desc">
+            Compassionate Care for Underprivileged Families. JCF Healthcare Support provides free prescription medicines, pediatric surgery grants, emergency ambulances, and volunteer specialist consultations across India.
+          </p>
+
+          <!-- Hero Glass Aid Finder Bar -->
+          <div class="hero-finder-container">
+            <form id="hero-finder-form" class="finder-form-grid">
+              <div class="finder-field">
+                <label for="hero-dept-select" class="finder-label">Department</label>
+                <select id="hero-dept-select" class="finder-select">
+                  <option value="Emergency Care">Emergency Care</option>
+                  <option value="Pediatric Care">Pediatric Care</option>
+                  <option value="Cardiology">Cardiology & Heart</option>
+                  <option value="Free Diagnostics">Free Diagnostics & Labs</option>
+                  <option value="Medicine Bank" selected>Medicine Bank</option>
+                  <option value="Mental Health">Mental Wellness</option>
+                </select>
+              </div>
+
+              <div class="finder-field">
+                <label for="hero-aid-select" class="finder-label">Required Aid</label>
+                <select id="hero-aid-select" class="finder-select">
+                  <option value="Free Prescription Medicines">Free Prescription Medicines</option>
+                  <option value="Surgery Financial Aid">Surgery Financial Grant</option>
+                  <option value="Doctor Tele-Guidance">Doctor Consultation</option>
+                  <option value="Emergency Ambulance Aid">Emergency Ambulance</option>
+                  <option value="Diagnostic Tests Aid">Free Lab Tests & Scans</option>
+                </select>
+              </div>
+
+              <div class="finder-field">
+                <label for="hero-urgency-select" class="finder-label">Urgency Level</label>
+                <select id="hero-urgency-select" class="finder-select">
+                  <option value="Normal">Normal (Review within 24h)</option>
+                  <option value="Urgent">Urgent (Review within 12h)</option>
+                  <option value="Emergency">Emergency (Immediate 2-4h)</option>
+                </select>
+              </div>
+
+              <button type="submit" class="btn-finder-search" id="hero-find-aid-btn">
+                Find Support →
+              </button>
+            </form>
+          </div>
+
+          <!-- Hero Login & Portals Access Bar -->
+          <div class="hero-login-action-box">
+            <div class="hero-login-info">
+              <span class="hero-login-icon">🔐</span>
+              <div>
+                <strong>Authorized Healthcare Portals Access</strong>
+                <span>Dedicated sign in for Doctors, Administrators, Patients & Volunteers</span>
+              </div>
+            </div>
+            <a href="login.html" class="btn-hero-login" title="Open All Panels Login Page">
+              <span>Login to Portals</span>
+              <span class="btn-arrow">→</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Right Column Visual Banner -->
+        <div class="hero-visual-col">
+          <div class="hero-image-card">
+            <img src="images/hero-medical-team.jpg" alt="JCF Healthcare Specialist Team" class="hero-main-img" />
+            <div class="hero-img-overlay-card">
+              <div class="hero-overlay-icon">🩺</div>
+              <div>
+                <strong>JCF Medical Outreach Network</strong>
+                <span>Over 15,000+ underprivileged patients assisted with 100% free care</span>
+              </div>
+              <span class="hero-badge-check">✓</span>
+            </div>
+          </div>
+
+          <!-- Floating Hero Badges -->
+          <div class="floating-hero-pill pill-1">
+            <div class="pill-icon">🚑</div>
+            <div class="pill-text">
+              <strong>24/7 Helpline</strong>
+              <span>Rapid Emergency Aid</span>
+            </div>
+          </div>
+
+          <div class="floating-hero-pill pill-2">
+            <div class="pill-icon">💊</div>
+            <div class="pill-text">
+              <strong>100% Free Medicines</strong>
+              <span>Doorstep Chronic Grants</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== HOW IT WORKS (4-STEP JOURNEY) ==================== -->
+  <section class="how-it-works-section" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Seamless Process</span>
+        <h2 class="section-title">How JCF Healthcare Aid Works</h2>
+        <p class="section-subtitle">A transparent 4-stage lifecycle from application submission to doorstep medicine delivery and surgery grants.</p>
+      </div>
+
+      <div class="steps-journey-grid">
+        <div class="step-journey-card">
+          <div class="step-num-badge">1</div>
+          <div class="step-icon-wrap">📝</div>
+          <h3 class="step-title">Submit Request</h3>
+          <p class="step-desc">Fill our simple patient form with your illness details, needed aid (medicines, surgery, consult), and upload your doctor prescription.</p>
+          <span class="step-subtag">Status: Pending</span>
+        </div>
+
+        <div class="step-journey-card">
+          <div class="step-num-badge">2</div>
+          <div class="step-icon-wrap">🩺</div>
+          <h3 class="step-title">Board Triage & Review</h3>
+          <p class="step-desc">Our medical advisory board & AI clinical triage engine verify prescriptions and financial eligibility within 4 to 24 hours.</p>
+          <span class="step-subtag">Status: Under Review</span>
+        </div>
+
+        <div class="step-journey-card">
+          <div class="step-num-badge">3</div>
+          <div class="step-icon-wrap">✅</div>
+          <h3 class="step-title">Aid Sanctioned</h3>
+          <p class="step-desc">Pharmacy vouchers, hospital surgery grants, or tele-consultation slots are approved and assigned to our verified volunteers.</p>
+          <span class="step-subtag">Status: Approved</span>
+        </div>
+
+        <div class="step-journey-card">
+          <div class="step-num-badge">4</div>
+          <div class="step-icon-wrap">📦</div>
+          <h3 class="step-title">Delivery & Follow-Up</h3>
+          <p class="step-desc">Doorstep medicine dispatch, hospital direct payment, and post-treatment physician follow-up are completed with full transparency.</p>
+          <span class="step-subtag">Status: In Progress / Completed</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== OUR DEPARTMENTS SECTION ==================== -->
+  <section class="departments-section" id="departments">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Specialized Wings</span>
+        <h2 class="section-title">Our Focus Healthcare Departments</h2>
+        <p class="section-subtitle">Dedicated care units working 365 days a year to ensure high-quality, barrier-free healthcare for every individual.</p>
+      </div>
+
+      <div class="department-cards-grid">
+        <div class="department-card" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-department').value='Emergency Care'; document.getElementById('patient-priority').value='Emergency';">
+          <div class="dept-icon-box">🚑</div>
+          <h3 class="dept-title">Emergency Care</h3>
+          <p class="dept-desc">Rapid ambulance dispatch, acute critical stabilization, and emergency triage for patients in distress.</p>
+          <span class="dept-link-btn">Request Support →</span>
+        </div>
+
+        <div class="department-card" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-department').value='Pediatric Care';">
+          <div class="dept-icon-box">🧸</div>
+          <h3 class="dept-title">Pediatric Support</h3>
+          <p class="dept-desc">Child malnutrition programs, congenital anomaly surgery funding, and newborn intensive care aid.</p>
+          <span class="dept-link-btn">Request Support →</span>
+        </div>
+
+        <div class="department-card" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-department').value='Cardiology';">
+          <div class="dept-icon-box">🫀</div>
+          <h3 class="dept-title">Cardiology Care</h3>
+          <p class="dept-desc">Subsidized pacemaker implants, valve surgery grants, and ongoing monthly cardiac medications.</p>
+          <span class="dept-link-btn">Request Support →</span>
+        </div>
+
+        <div class="department-card" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-department').value='Free Diagnostics';">
+          <div class="dept-icon-box">🔬</div>
+          <h3 class="dept-title">Free Diagnostics</h3>
+          <p class="dept-desc">Community laboratory testing, blood work, ECGs, X-rays, and early pathology screenings.</p>
+          <span class="dept-link-btn">Request Support →</span>
+        </div>
+
+        <div class="department-card" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-department').value='Medicine Bank';">
+          <div class="dept-icon-box">💊</div>
+          <h3 class="dept-title">Medicine Bank</h3>
+          <p class="dept-desc">Monthly doorstep delivery of prescription insulin, dialysis drugs, and chronic ailment treatments.</p>
+          <span class="dept-link-btn">Request Support →</span>
+        </div>
+
+        <div class="department-card" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-department').value='Mental Health';">
+          <div class="dept-icon-box">🧠</div>
+          <h3 class="dept-title">Mental Wellness</h3>
+          <p class="dept-desc">Free telephonic counseling, psychiatric evaluation camps, and caregiver emotional support.</p>
+          <span class="dept-link-btn">Request Support →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FEATURED PROGRAMS & SERVICES ==================== -->
+  <section class="services-section" id="services">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Impact Initiatives</span>
+        <h2 class="section-title">Featured Healthcare Programs</h2>
+        <p class="section-subtitle">Discover our specialized initiatives designed to bridge the healthcare gap for vulnerable communities.</p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card">
+          <div class="service-img-wrap">
+            <img src="images/program-diagnostics.jpg" alt="Advanced Diagnostics Network" class="service-img" />
+            <span class="service-tag-badge">100% Subsidized</span>
+          </div>
+          <div class="service-body">
+            <h3 class="service-title">Advanced Diagnostics Network</h3>
+            <p class="service-desc">Providing high-cost imaging (CT, MRI, 2D Echo) and pathology reports free of charge to BPL cardholders.</p>
+            <ul class="service-features-list">
+              <li><span>✓</span> Partnered with 40+ accredited diagnostic labs</li>
+              <li><span>✓</span> Fast-track report evaluation by JCF doctors</li>
+              <li><span>✓</span> Zero paperwork hurdle for patients</li>
+            </ul>
+            <a href="#patient-form" class="dept-link-btn">Apply For Diagnostic Aid →</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-img-wrap">
+            <img src="images/program-surgery.jpg" alt="Specialized Surgeries & Grants" class="service-img" />
+            <span class="service-tag-badge">Direct Hospital Grant</span>
+          </div>
+          <div class="service-body">
+            <h3 class="service-title">Specialized Surgeries & Grants</h3>
+            <p class="service-desc">Direct financial assistance credited directly to hospitals for congenital heart surgeries, oncology, and trauma ops.</p>
+            <ul class="service-features-list">
+              <li><span>✓</span> Up to ₹2,50,000 surgical sponsorship per case</li>
+              <li><span>✓</span> Verified through hospital medical superintendent</li>
+              <li><span>✓</span> Post-operative recovery medicine support</li>
+            </ul>
+            <a href="#patient-form" class="dept-link-btn">Apply For Surgery Grant →</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-img-wrap">
+            <img src="images/program-medicines.jpg" alt="Chronic Medicine Refill Bank" class="service-img" />
+            <span class="service-tag-badge">Ongoing Monthly Aid</span>
+          </div>
+          <div class="service-body">
+            <h3 class="service-title">Chronic Medicine Refill Bank</h3>
+            <p class="service-desc">Long-term medication support for elderly and daily-wage earners suffering from diabetes, hypertension, and asthma.</p>
+            <ul class="service-features-list">
+              <li><span>✓</span> Doorstep courier or local distribution camps</li>
+              <li><span>✓</span> Authentic unexpired branded generics</li>
+              <li><span>✓</span> Quarterly health review with physician</li>
+            </ul>
+            <a href="#patient-form" class="dept-link-btn">Register for Medicine Refills →</a>
+          </div>
+        </div>
+
+        <div class="service-card">
+          <div class="service-img-wrap">
+            <img src="images/program-ambulance.jpg" alt="24/7 Rapid Emergency Response" class="service-img" />
+            <span class="service-tag-badge" style="background:var(--danger); color:#fff;">24/7 Rapid Cell</span>
+          </div>
+          <div class="service-body">
+            <h3 class="service-title">Emergency Ambulance Network</h3>
+            <p class="service-desc">Immediate patient transport coordination for acute trauma, cardiac arrest, and maternal critical transfers.</p>
+            <ul class="service-features-list">
+              <li><span>✓</span> Network of 50+ equipped ambulances</li>
+              <li><span>✓</span> On-board paramedic oxygen & vitals monitoring</li>
+              <li><span>✓</span> Direct green corridor coordination</li>
+            </ul>
+            <a href="tel:+9118002008899" class="dept-link-btn" style="color:var(--danger);">Call Emergency Helpline: 1800 200 8899 →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== IMPACT COUNTERS ==================== -->
+  <section class="impact-section" id="impact">
+    <div class="container">
+      <div class="impact-header">
+        <span class="section-tag" style="background: rgba(255,255,255,0.15); color:#38bdf8; border-color: rgba(56, 189, 248, 0.4);">Verified Milestones</span>
+        <h2>Our Impact In Action</h2>
+        <p>Real stories, real lives saved. Every submission represents our pledge to accessible healthcare.</p>
+      </div>
+
+      <div class="counters-grid">
+        <div class="counter-card">
+          <span class="counter-val" data-target="15420">0</span>
+          <div class="counter-title">Patients Assisted</div>
+          <div class="counter-desc">Free consultations & surgery aid</div>
+        </div>
+
+        <div class="counter-card">
+          <span class="counter-val" data-target="1280">0</span>
+          <div class="counter-title">Registered Volunteers</div>
+          <div class="counter-desc">Doctors, nurses, paramedics & citizens</div>
+        </div>
+
+        <div class="counter-card">
+          <span class="counter-val" data-target="145">0</span>
+          <div class="counter-title">Community Health Camps</div>
+          <div class="counter-desc">Organized across rural & semi-urban areas</div>
+        </div>
+
+        <div class="counter-card">
+          <span class="counter-val" data-target="48500">0</span>
+          <div class="counter-title">Free Prescriptions Dispensed</div>
+          <div class="counter-desc">Lifesaving medicines delivered free</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PATIENT RECOVERY STORIES & TESTIMONIALS ==================== -->
+  <section class="testimonials-section" id="stories">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Humanitarian Impact</span>
+        <h2 class="section-title">Patient Recovery Stories & Community Voices</h2>
+        <p class="section-subtitle">Real people, restored health, and renewed hope. See how your support and our medical network transform lives.</p>
+      </div>
+
+      <div class="testimonials-grid">
+        <!-- Story 1: Amina Khatun -->
+        <div class="story-card">
+          <div class="story-img-wrap">
+            <img src="images/patient-amina.jpg" alt="Amina Khatun - Beneficiary Story" class="story-img" />
+            <span class="story-tag-pill">❤️ Cardiac Care Aid</span>
+          </div>
+          <div class="story-body">
+            <div class="story-stars">★★★★★</div>
+            <p class="story-quote">"When my hypertension escalated and I couldn't afford vital cardiac medicines, JCF's medicine bank stepped in. Within 48 hours, verified supplies reached my home. Today I am active and healthy again."</p>
+            <div class="story-author-box">
+              <div>
+                <h4 class="story-author-name">Amina Khatun</h4>
+                <div class="story-author-sub">Lucknow • Monthly Chronic Aid Beneficiary</div>
+              </div>
+              <span class="story-verified-badge">✓ Verified Case</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 2: Baby Aarav & Sunita -->
+        <div class="story-card">
+          <div class="story-img-wrap">
+            <img src="images/patient-child.jpg" alt="Baby Aarav & Mother Sunita" class="story-img" />
+            <span class="story-tag-pill" style="background:#0284c7;">🧸 Pediatric Heart Surgery</span>
+          </div>
+          <div class="story-body">
+            <div class="story-stars">★★★★★</div>
+            <p class="story-quote">"My 4-year-old son Aarav was diagnosed with a critical heart defect. We had no savings, but JCF doctors sanctioned our full surgery grant at the hospital. JCF gave my baby boy a second life."</p>
+            <div class="story-author-box">
+              <div>
+                <h4 class="story-author-name">Sunita & Baby Aarav</h4>
+                <div class="story-author-sub">Delhi NCR • Pediatric Surgical Grant Recipient</div>
+              </div>
+              <span class="story-verified-badge">✓ Verified Case</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Story 3: Volunteer Health Camp -->
+        <div class="story-card">
+          <div class="story-img-wrap">
+            <img src="images/volunteer-camp.jpg" alt="Rural Outreach Health Camp" class="story-img" />
+            <span class="story-tag-pill" style="background:#059669;">🤝 Rural Outreach Camp</span>
+          </div>
+          <div class="story-body">
+            <div class="story-stars">★★★★★</div>
+            <p class="story-quote">"Our weekend medical camps bring senior cardiologists, pediatricians, and free diagnostics directly to semi-urban & rural doorsteps. Over 15,000 citizens have received free checkups and medicines."</p>
+            <div class="story-author-box">
+              <div>
+                <h4 class="story-author-name">145+ Community Camps</h4>
+                <div class="story-author-sub">Field Medical Units • 1,280+ Registered Volunteers</div>
+              </div>
+              <span class="story-verified-badge">✓ Verified Impact</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FORMS: PATIENT SUPPORT & VOLUNTEER ==================== -->
+  <section class="forms-wrapper-section" id="forms-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Direct Action Portal</span>
+        <h2 class="section-title">Apply for Patient Aid or Join as Volunteer</h2>
+        <p class="section-subtitle">Whether you need immediate healthcare assistance or want to volunteer your clinical expertise, submit below.</p>
+      </div>
+
+      <div class="form-split-grid">
+        <!-- FORM 1: Patient Support Form -->
+        <div class="form-card" id="patient-form">
+          <div class="form-card-header">
+            <span class="form-badge-pill badge-patient-form">Patient Support Form</span>
+            <h3 class="form-card-title">Request Healthcare Aid</h3>
+            <p class="form-card-subtitle">Fill in patient details for medicine grants, surgery funds, or tele-guidance.</p>
+          </div>
+
+          <form id="patient-support-form">
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="patient-name" class="form-label">Patient Full Name <span class="req">*</span></label>
+                <input type="text" id="patient-name" name="patient_name" class="form-input" placeholder="e.g. Ramesh Kumar" required>
+              </div>
+
+              <div class="form-group">
+                <label for="patient-phone" class="form-label">Phone / WhatsApp <span class="req">*</span></label>
+                <input type="tel" id="patient-phone" name="patient_phone" class="form-input" placeholder="e.g. 9876543210" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="patient-age" class="form-label">Age (Years) <span class="req">*</span></label>
+                <input type="number" id="patient-age" name="patient_age" class="form-input" min="0" max="120" placeholder="e.g. 45" required>
+              </div>
+
+              <div class="form-group">
+                <label for="patient-gender" class="form-label">Gender <span class="req">*</span></label>
+                <select id="patient-gender" name="patient_gender" class="form-select" required>
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="patient-city" class="form-label">City / State <span class="req">*</span></label>
+                <input type="text" id="patient-city" name="patient_city" class="form-input" placeholder="e.g. Lucknow, UP" required>
+              </div>
+
+              <div class="form-group">
+                <label for="patient-department" class="form-label">Department <span class="req">*</span></label>
+                <select id="patient-department" name="patient_department" class="form-select" required>
+                  <option value="Emergency Care">Emergency Care</option>
+                  <option value="Pediatric Care">Pediatric Care</option>
+                  <option value="Cardiology">Cardiology & Heart</option>
+                  <option value="Free Diagnostics">Free Diagnostics & Labs</option>
+                  <option value="Medicine Bank" selected>Medicine Bank</option>
+                  <option value="Mental Health">Mental Wellness</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="patient-aid-type" class="form-label">Assistance Type <span class="req">*</span></label>
+                <select id="patient-aid-type" name="patient_aid_type" class="form-select" required>
+                  <option value="Free Prescription Medicines">Free Prescription Medicines</option>
+                  <option value="Surgery Financial Aid">Surgery Financial Aid</option>
+                  <option value="Doctor Tele-Guidance">Doctor Tele-Guidance</option>
+                  <option value="Emergency Ambulance Aid">Emergency Ambulance Aid</option>
+                  <option value="Wheelchair / Equipment Aid">Medical Equipment / Wheelchair</option>
+                  <option value="Diagnostic Tests Aid">Free Diagnostic Tests</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="patient-priority" class="form-label">Priority Level <span class="req">*</span></label>
+                <select id="patient-priority" name="patient_priority" class="form-select" required>
+                  <option value="Normal">Normal (Review within 24-48h)</option>
+                  <option value="Urgent">Urgent (Review within 12h)</option>
+                  <option value="Emergency">Emergency (Immediate 2-4h)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="patient-details" class="form-label">Medical Condition & Diagnosis Details <span class="req">*</span></label>
+              <textarea id="patient-details" name="patient_details" class="form-textarea" placeholder="Describe the illness, hospital diagnosis, doctor names, and specific medicines or surgery needed..." required></textarea>
+            </div>
+
+            <!-- AI Triage Summary Live Generator Box -->
+            <div class="ai-live-preview-box" id="ai-live-preview-box">
+              <div class="ai-preview-header">
+                <span>🤖 AI Triage Preview</span>
+                <span class="ai-status-pill">Auto-Summarizer Active</span>
+              </div>
+              <p id="ai-preview-text">Type your medical condition above to see an instant clinical triage summary for our doctors...</p>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Upload Doctor Prescription / Hospital Bill (Optional Simulator)</label>
+              <div class="file-upload-box">
+                <input type="file" id="patient-doc" name="patient_doc" accept=".pdf,.jpg,.jpeg,.png">
+                <div class="file-upload-icon">📄</div>
+                <div class="file-upload-text" id="patient-doc-label">Click or drag prescription / ID proof here</div>
+              </div>
+            </div>
+
+            <button type="submit" class="form-submit-btn btn-submit-patient">
+              <span>Submit Patient Aid Request</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- FORM 2: Volunteer Registration Form -->
+        <div class="form-card" id="volunteer-form">
+          <div class="form-card-header">
+            <span class="form-badge-pill badge-volunteer-form">Volunteer With Us</span>
+            <h3 class="form-card-title">Join As A Healthcare Hero</h3>
+            <p class="form-card-subtitle">Lend your skills to save lives. Doctors, nurses, students, and citizens are welcome.</p>
+          </div>
+
+          <form id="volunteer-registration-form">
+            <div class="form-group">
+              <label for="vol-name" class="form-label">Full Name <span class="req">*</span></label>
+              <input type="text" id="vol-name" name="vol_name" class="form-input" placeholder="e.g. Dr. Ananya Sen / Rahul Verma" required>
+            </div>
+
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="vol-email" class="form-label">Email Address <span class="req">*</span></label>
+                <input type="email" id="vol-email" name="vol_email" class="form-input" placeholder="e.g. name@example.com" required>
+              </div>
+
+              <div class="form-group">
+                <label for="vol-phone" class="form-label">Phone Number <span class="req">*</span></label>
+                <input type="tel" id="vol-phone" name="vol_phone" class="form-input" placeholder="e.g. 9811122233" required>
+              </div>
+            </div>
+
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="vol-city" class="form-label">City / Region <span class="req">*</span></label>
+                <input type="text" id="vol-city" name="vol_city" class="form-input" placeholder="e.g. New Delhi" required>
+              </div>
+
+              <div class="form-group">
+                <label for="vol-role" class="form-label">Volunteer Role <span class="req">*</span></label>
+                <select id="vol-role" name="vol_role" class="form-select" required>
+                  <option value="Doctor / Medical Specialist">Doctor / Medical Specialist</option>
+                  <option value="Registered Nurse / Paramedic">Registered Nurse / Paramedic</option>
+                  <option value="Blood / Platelet Donor">Blood / Platelet Donor</option>
+                  <option value="Field Camp Coordinator">Field Camp Coordinator</option>
+                  <option value="Medicine Delivery Volunteer">Medicine Delivery Volunteer</option>
+                  <option value="Mental Health Counselor">Mental Health Counselor</option>
+                  <option value="General Volunteer">General Volunteer</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="vol-availability" class="form-label">Availability Schedule <span class="req">*</span></label>
+              <select id="vol-availability" name="vol_availability" class="form-select" required>
+                <option value="Weekends (Free OPD)">Weekends (Free OPD Camps)</option>
+                <option value="Weekday Evenings (2-4 hrs/week)">Weekday Evenings (2-4 hrs/week)</option>
+                <option value="On-Call Emergency Triage">On-Call Emergency Triage</option>
+                <option value="Monthly Blood Donation Network">Monthly Blood Donation Network</option>
+                <option value="Flexible / As Needed">Flexible / As Needed</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="vol-experience" class="form-label">Medical Background / Skills & Motivation</label>
+              <textarea id="vol-experience" name="vol_experience" class="form-textarea" placeholder="Tell us about your medical qualification, experience, or what motivates you to support JCF Healthcare..."></textarea>
+            </div>
+
+            <button type="submit" class="form-submit-btn btn-submit-volunteer">
+              <span>Register as Volunteer Hero</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SEARCHABLE FAQ ACCORDION SECTION ==================== -->
+  <section class="faq-section" id="faqs-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Knowledge Base</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Find immediate answers to questions regarding patient aid, free medicines, surgical sponsorships, and volunteering.</p>
+      </div>
+
+      <!-- FAQ Search & Category Filters -->
+      <div class="faq-controls-wrap">
+        <div class="faq-search-box">
+          <input type="text" id="faq-search-input" class="faq-search-input" placeholder="Search FAQs (e.g. prescription, surgery grant, volunteer)...">
+        </div>
+        <div class="faq-category-pills" id="faq-category-pills">
+          <button type="button" class="faq-pill active" data-cat="All">All</button>
+          <button type="button" class="faq-pill" data-cat="Patient Aid">Patient Aid</button>
+          <button type="button" class="faq-pill" data-cat="Medicines">Medicines</button>
+          <button type="button" class="faq-pill" data-cat="Surgeries">Surgeries</button>
+          <button type="button" class="faq-pill" data-cat="Volunteering">Volunteering</button>
+          <button type="button" class="faq-pill" data-cat="General">General</button>
+        </div>
+      </div>
+
+      <!-- FAQ Accordion List -->
+      <div class="faq-accordion-list" id="faq-accordion-container">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT NGO & DOCTORS DIRECTORY ==================== -->
+  <section class="about-section" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <span class="section-tag">About JCF Healthcare Support</span>
+          <h2 class="section-title">Bridging Medical Inequality With Care & Integrity</h2>
+          <p style="margin-bottom: 1.25rem;">
+            Founded with the belief that quality healthcare is a fundamental human right, <strong>JCF Healthcare Support</strong> works on the frontline to prevent treatable illnesses from becoming fatal due to lack of financial resources.
+          </p>
+          <p>
+            We operate in strict coordination with certified volunteer clinicians, municipal healthcare workers, and accredited hospitals to deliver medicines, fund emergency pediatric surgeries, and organize free diagnostics.
+          </p>
+
+          <div class="about-highlights">
+            <div class="about-highlight-card">
+              <h4>🎯 100% Transparency</h4>
+              <p>Every rupee and medicine unit is tracked and verified directly with patient case files.</p>
+            </div>
+            <div class="about-highlight-card">
+              <h4>🩺 Board of Specialists</h4>
+              <p>Over 80 senior doctors review critical surgery applications within hours.</p>
+            </div>
+            <div class="about-highlight-card">
+              <h4>⚖️ 80G & 12A Certified</h4>
+              <p>Registered non-profit foundation with statutory compliance and open audit reports.</p>
+            </div>
+            <div class="about-highlight-card">
+              <h4>⚡ Rapid Response</h4>
+              <p>Emergency cases processed within 2-4 hours through dedicated local emergency cells.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Doctors Panel Grid -->
+        <div>
+          <div class="doctors-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 0.5rem;">
+              <h3 style="font-size: 1.4rem;">Honorary Advisory Doctors</h3>
+              <button type="button" class="btn-outline-sm" onclick="window.jcfApp.openAppointmentModal();">📅 Book Consult</button>
+            </div>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom:1rem;">Senior medical practitioners guiding our triage and financial aid allocation:</p>
+
+            <div class="doctors-grid" id="public-doctors-grid">
+              <!-- Populated by JavaScript from storage doctors -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT & 24/7 HOTLINE ==================== -->
+  <section class="contact-section" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">24/7 Helpline</span>
+        <h2 class="section-title">Get in Touch With Our Care Team</h2>
+        <p class="section-subtitle">Reach out for emergency patient coordination, camp schedules, or general inquiries.</p>
+      </div>
+
+      <div class="contact-grid">
+        <!-- Contact Info Cards -->
+        <div class="contact-info-cards">
+          <div class="contact-card-box">
+            <div class="contact-icon-box">📞</div>
+            <div class="contact-card-text">
+              <h4>Toll-Free Emergency Helpline</h4>
+              <p><a href="tel:+9118002008899" style="font-size:1.15rem; font-weight:700; color:var(--primary);">+91 1800 200 8899</a></p>
+              <p>Available 24 hours a day, 7 days a week for critical triage & emergency patient transport.</p>
+            </div>
+          </div>
+
+          <div class="contact-card-box">
+            <div class="contact-icon-box">💬</div>
+            <div class="contact-card-text">
+              <h4>WhatsApp Medical Desk</h4>
+              <p><a href="https://wa.me/919876500011" target="_blank" rel="noopener">+91 98765 00011 (Instant Document & Prescription Drop)</a></p>
+              <p>Send clear photos of doctor prescriptions or diagnostic reports for rapid validation.</p>
+            </div>
+          </div>
+
+          <div class="contact-card-box">
+            <div class="contact-icon-box">📍</div>
+            <div class="contact-card-text">
+              <h4>JCF Central Secretariat & Pharmacy Bank</h4>
+              <p>Plot 42, Health Foundation Zone, Institutional Area, New Delhi - 110025</p>
+              <p>Working Hours: Mon - Sat (8:30 AM to 7:00 PM)</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Inquiry Form -->
+        <div class="form-card" style="padding: 2rem;">
+          <h3 style="font-size: 1.35rem; margin-bottom: 0.35rem;">Send a General Inquiry</h3>
+          <p style="font-size: 0.88rem; margin-bottom: 1.5rem; color: var(--text-muted);">Have questions regarding donations, CSR partnerships, or health camps?</p>
+
+          <form id="contact-inquiry-form">
+            <div class="form-group">
+              <label for="contact-name" class="form-label">Your Name <span class="req">*</span></label>
+              <input type="text" id="contact-name" name="contact_name" class="form-input" placeholder="e.g. Priyanshu Dave" required>
+            </div>
+
+            <div class="form-grid-2col">
+              <div class="form-group">
+                <label for="contact-email" class="form-label">Email <span class="req">*</span></label>
+                <input type="email" id="contact-email" name="contact_email" class="form-input" placeholder="name@example.com" required>
+              </div>
+              <div class="form-group">
+                <label for="contact-phone" class="form-label">Phone</label>
+                <input type="tel" id="contact-phone" name="contact_phone" class="form-input" placeholder="e.g. 98765 43210">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-subject" class="form-label">Subject <span class="req">*</span></label>
+              <input type="text" id="contact-subject" name="contact_subject" class="form-input" placeholder="e.g. Organizing Health Camp in our area" required>
+            </div>
+
+            <div class="form-group">
+              <label for="contact-message" class="form-label">Message <span class="req">*</span></label>
+              <textarea id="contact-message" name="contact_message" class="form-textarea" style="min-height:80px;" placeholder="Write your message here..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary" style="width: 100%; justify-content: center; padding: 0.85rem;">
+              Send Message →
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="brand-logo">
+            <div class="logo-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 7v6"/><path d="M9 10h6"/></svg>
+            </div>
+            <div class="logo-text-group">
+              <span class="logo-title" style="color:#ffffff;">JCF Healthcare</span>
+              <span class="logo-tag" style="color:#38bdf8;">Support & Care NGO</span>
+            </div>
+          </div>
+          <p>
+            A non-profit voluntary humanitarian initiative dedicated to eliminating financial hurdles for lifesaving medical care, pediatric surgeries, and essential chronic medicines across India.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#how-it-works">How It Works</a></li>
+            <li><a href="#departments">Departments</a></li>
+            <li><a href="#services">Featured Programs</a></li>
+            <li><a href="#patient-form">Patient Aid Request</a></li>
+            <li><a href="#volunteer-form">Volunteer With Us</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Dedicated Portals</h4>
+          <ul class="footer-links">
+            <li><a href="javascript:void(0)" onclick="window.jcfApp.switchRole('patient')">👤 Patient / User Portal</a></li>
+            <li><a href="javascript:void(0)" onclick="window.jcfApp.switchRole('doctor')">👨‍⚕️ Doctor / Specialist Panel</a></li>
+            <li><a href="javascript:void(0)" onclick="window.jcfApp.switchRole('admin')">👨‍💼 Admin Management Dashboard</a></li>
+            <li><a href="javascript:void(0)" onclick="window.jcfApp.switchRole('volunteer')">🤝 Volunteer Hero Panel</a></li>
+            <li><a href="javascript:void(0)" onclick="window.jcfApp.openAppointmentModal()">🩺 Doctor Appointment Booking</a></li>
+            <li><a href="javascript:void(0)" class="open-tracker-btn">🔍 Live Application Tracker</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Emergency & Status</h4>
+          <ul class="footer-links">
+            <li><a href="tel:+9118002008899" style="color:#38bdf8; font-weight:700;">📞 24/7 Helpline: 1800 200 8899</a></li>
+            <li><a href="mailto:care@jcfhealthcare.org">✉️ care@jcfhealthcare.org</a></li>
+            <li><a href="javascript:void(0)" class="open-tracker-btn" style="color:#34d399; font-weight:600;">🔍 Track Application Status</a></li>
+            <li><a href="javascript:void(0)" onclick="window.jcfBot?.toggleChat(true)" style="color:#a5b4fc;">🤖 Talk with CareBot AI</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 JCF Healthcare Support Foundation. All Rights Reserved. Non-Profit Medical Aid Initiative.</div>
+        <div>Compliant under 80G & 12A • Transparent Non-Profit Care</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== AI FAQ CHATBOT (CAREBOT) FLOATING WIDGET ==================== -->
+  <div class="carebot-fab-container">
+    <div class="carebot-badge-bubble" id="carebot-badge-bubble">
+      <span>💬 Need help? Ask CareBot</span>
+    </div>
+    <button type="button" class="carebot-trigger-btn" id="carebot-toggle-btn" aria-label="Open AI Healthcare FAQ Assistant">
+      <div class="carebot-pulse"></div>
+      🤖
+    </button>
+  </div>
+
+  <!-- Chatbot Window -->
+  <div class="carebot-window" id="carebot-window">
+    <div class="carebot-header">
+      <div class="carebot-header-left">
+        <div class="bot-avatar-header">🤖</div>
+        <div>
+          <div class="bot-header-title">JCF CareBot</div>
+          <div class="bot-status-online">AI Healthcare Assistant • Online</div>
+        </div>
+      </div>
+      <div class="carebot-header-actions">
+        <button type="button" class="bot-icon-btn" id="carebot-sound-btn" title="Toggle audio tone">🔔</button>
+        <button type="button" class="bot-icon-btn" id="carebot-clear-btn" title="Reset conversation">🔄</button>
+        <button type="button" class="bot-icon-btn" id="carebot-close-btn" title="Close chat">✕</button>
+      </div>
+    </div>
+
+    <div class="carebot-messages" id="carebot-messages">
+      <!-- Injected dynamically by chatbot.js -->
+    </div>
+
+    <div class="carebot-typing" id="carebot-typing-indicator">
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <div class="typing-dot"></div>
+      <span style="font-size:0.75rem; color:var(--text-muted); margin-left:4px;">CareBot is typing...</span>
+    </div>
+
+    <div class="carebot-footer">
+      <form id="carebot-form" class="carebot-input-form">
+        <input type="text" id="carebot-input" class="carebot-input" placeholder="Type your query (e.g. free medicine, surgery grant, status)..." autocomplete="off">
+        <button type="submit" class="carebot-send-btn" aria-label="Send query">
+          ➤
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== AUTH / ROLE SWITCHER MODAL ==================== -->
+  <div class="modal-overlay" id="auth-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card auth-modal-card">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <div class="auth-header">
+        <div class="auth-logo-icon">🔐</div>
+        <h3>Portal Access & Role Sign In</h3>
+        <p>Switch instantly between user roles or sign in with custom credentials.</p>
+        <a href="login.html" style="display:inline-flex; align-items:center; gap:0.4rem; font-size:0.82rem; font-weight:700; color:var(--primary); margin-top:0.65rem; background:var(--primary-light); padding:4px 12px; border-radius:var(--radius-full);">
+          ↗ Open Fullscreen Dedicated Login Page
+        </a>
+      </div>
+
+      <!-- Quick 1-Click Demo Logins -->
+      <div class="demo-login-box">
+        <span class="demo-login-label">⚡ 1-Click Demo Access (All Panels)</span>
+        <div class="demo-buttons-grid">
+          <button type="button" class="btn-demo-role btn-demo-doctor" onclick="window.jcfApp.switchRole('doctor')">
+            <span>👨‍⚕️</span>
+            <div>
+              <strong>Doctor Panel</strong>
+              <small>Dr. Rajesh Varma (AIIMS Alum, Chief Cardiologist)</small>
+            </div>
+          </button>
+
+          <button type="button" class="btn-demo-role btn-demo-patient" onclick="window.jcfApp.switchRole('patient')">
+            <span>👤</span>
+            <div>
+              <strong>Patient Panel</strong>
+              <small>Amina Khatun (Active Aid Request)</small>
+            </div>
+          </button>
+
+          <button type="button" class="btn-demo-role btn-demo-admin" onclick="window.jcfApp.switchRole('admin')">
+            <span>👨‍💼</span>
+            <div>
+              <strong>Admin Dashboard</strong>
+              <small>Full master management control</small>
+            </div>
+          </button>
+
+          <button type="button" class="btn-demo-role btn-demo-vol" onclick="window.jcfApp.switchRole('volunteer')">
+            <span>🤝</span>
+            <div>
+              <strong>Volunteer Hero</strong>
+              <small>Dr. Sameer Siddiqui (Field Coordinator)</small>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-divider">
+        <span>or Custom Sign In</span>
+      </div>
+
+      <!-- Custom Auth Form -->
+      <form id="custom-auth-form" class="auth-form-body">
+        <div class="form-group">
+          <label class="form-label">Select Role</label>
+          <select id="auth-role-select" class="form-select" required>
+            <option value="patient">Patient / Beneficiary</option>
+            <option value="doctor">Honorary Doctor / Specialist</option>
+            <option value="volunteer">Volunteer Hero</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Full Name / Email</label>
+          <input type="text" id="auth-name-input" class="form-input" placeholder="e.g. Dr. Rajesh Varma or amina@example.com" required>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem;">
+          Sign In to Portal →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== 👨‍⚕️ DOCTOR PORTAL MODAL VIEW ==================== -->
+  <div class="modal-overlay" id="doctor-portal-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card panel-modal-width">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <!-- Doctor Header Banner -->
+      <div class="panel-header-banner doctor-banner">
+        <div class="panel-user-info">
+          <div class="panel-avatar" id="doc-portal-avatar">👨‍⚕️</div>
+          <div>
+            <div class="panel-role-tag">Doctor & Specialist Panel</div>
+            <h2 class="panel-user-name" id="doc-portal-name">Dr. Rajesh Varma</h2>
+            <div class="panel-user-meta" id="doc-portal-meta">🫀 Cardiology & Heart Care • MBBS, MD, DM - AIIMS • 24+ Yrs Exp</div>
+          </div>
+        </div>
+        <div class="panel-header-actions">
+          <button type="button" class="btn-outline-sm btn-avail-toggle" id="doc-avail-toggle-btn" onclick="window.jcfApp.toggleDoctorAvailability();">
+            🟢 Status: Available for OPD
+          </button>
+          <button type="button" class="btn-outline-sm" onclick="window.jcfApp.openDoctorProfileModal();">
+            ✏️ Edit Profile
+          </button>
+          <button type="button" class="btn-outline-sm" onclick="window.jcfApp.logout();">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Doctor Sub-Tab Navigation Bar -->
+      <div class="doctor-subnav-bar">
+        <button type="button" class="doc-subnav-pill active" data-doctab="dash" onclick="window.jcfApp.switchDoctorTab('dash')">📊 Dashboard & Queue</button>
+        <button type="button" class="doc-subnav-pill" data-doctab="apts" onclick="window.jcfApp.switchDoctorTab('apts')">📅 Appointments (<span id="doc-tab-apts-count">0</span>)</button>
+        <button type="button" class="doc-subnav-pill" data-doctab="patients" onclick="window.jcfApp.switchDoctorTab('patients')">👥 My Patients (<span id="doc-tab-patients-count">0</span>)</button>
+        <button type="button" class="doc-subnav-pill" data-doctab="notes" onclick="window.jcfApp.switchDoctorTab('notes')">📝 Consultation Records</button>
+        <button type="button" class="doc-subnav-pill" data-doctab="notifs" onclick="window.jcfApp.switchDoctorTab('notifs')">🔔 Notifications</button>
+      </div>
+
+      <!-- Doctor Tab 1: Dashboard & Schedule Queue -->
+      <div class="doctor-tab-panel active" id="doctab-dash">
+        <!-- KPI Metrics Grid -->
+        <div class="doctor-kpi-grid">
+          <div class="doc-kpi-card kpi-card-blue">
+            <span class="doc-kpi-val" id="doc-kpi-total-patients">0</span>
+            <span class="doc-kpi-lbl">Total Patients</span>
+          </div>
+          <div class="doc-kpi-card kpi-card-teal">
+            <span class="doc-kpi-val" id="doc-kpi-total-apts">0</span>
+            <span class="doc-kpi-lbl">Total Consultations</span>
+          </div>
+          <div class="doc-kpi-card kpi-card-amber">
+            <span class="doc-kpi-val" id="doc-kpi-pending-apts">0</span>
+            <span class="doc-kpi-lbl">Pending Requests</span>
+          </div>
+          <div class="doc-kpi-card kpi-card-green">
+            <span class="doc-kpi-val" id="doc-kpi-completed-apts">0</span>
+            <span class="doc-kpi-lbl">Completed Consults</span>
+          </div>
+        </div>
+
+        <!-- Today's Schedule Queue -->
+        <div class="panel-section-box" style="margin-top:1.25rem;">
+          <div class="panel-box-header">
+            <h3>Today's Consultation Schedule & Priority Triage</h3>
+            <span class="badge-pill-cyan">Live OPD Queue</span>
+          </div>
+          <div id="doctor-today-queue-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Tab 2: Appointments Management -->
+      <div class="doctor-tab-panel" id="doctab-apts">
+        <div class="panel-section-box">
+          <div class="panel-box-header">
+            <h3>Doctor Appointment Management</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Review patient consultation requests, accept bookings, join video rooms, and record notes.</p>
+          </div>
+          <div id="doctor-all-apts-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Tab 3: My Assigned Patients -->
+      <div class="doctor-tab-panel" id="doctab-patients">
+        <div class="panel-section-box">
+          <div class="panel-box-header">
+            <h3>Assigned Patient Clinical Roster</h3>
+            <p style="font-size:0.85rem; color:var(--text-muted);">View patient medical summaries, diagnosis details, attached prescriptions, and AI Triage.</p>
+          </div>
+          <div id="doctor-my-patients-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Tab 4: Consultation Records & Notes -->
+      <div class="doctor-tab-panel" id="doctab-notes">
+        <div class="panel-section-box">
+          <div class="panel-box-header">
+            <h3>Completed Consultation Records & Advice</h3>
+          </div>
+          <div id="doctor-consultation-records-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Doctor Tab 5: Doctor Notifications -->
+      <div class="doctor-tab-panel" id="doctab-notifs">
+        <div class="panel-section-box">
+          <div class="panel-box-header">
+            <h3>Clinical Alerts & Admin Notifications</h3>
+          </div>
+          <div id="doctor-notifs-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== 👤 PATIENT PORTAL MODAL VIEW ==================== -->
+  <div class="modal-overlay" id="patient-portal-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card panel-modal-width">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <!-- Patient Header Banner -->
+      <div class="panel-header-banner patient-banner">
+        <div class="panel-user-info">
+          <div class="panel-avatar">👤</div>
+          <div>
+            <div class="panel-role-tag">Patient / User Portal</div>
+            <h2 class="panel-user-name" id="pat-portal-name">Amina Khatun</h2>
+            <div class="panel-user-meta" id="pat-portal-meta">📞 +91 98765 43210 • 📍 New Delhi • Ref: JCF-PAT-7814</div>
+          </div>
+        </div>
+        <div class="panel-header-actions">
+          <button type="button" class="btn-outline-sm" onclick="window.jcfApp.navigateToSection('patient-form'); document.getElementById('patient-portal-modal').classList.remove('active');">
+            ➕ New Aid Request
+          </button>
+          <button type="button" class="btn-primary-sm" onclick="window.jcfApp.openAppointmentModal();">
+            📅 Book Consult
+          </button>
+          <button type="button" class="btn-outline-sm" onclick="window.jcfApp.logout();">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Patient Dashboard Content Tabs / Grids -->
+      <div class="patient-panel-body">
+        <!-- Live Request Lifecycle Step-Tracker -->
+        <div class="panel-section-box">
+          <div class="panel-box-header">
+            <h3>Active Healthcare Support Requests</h3>
+            <span class="badge-pill-cyan">Live 5-Stage Verification</span>
+          </div>
+
+          <div id="patient-requests-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Patient Appointments List -->
+        <div class="panel-section-box" style="margin-top:1.5rem;">
+          <div class="panel-box-header">
+            <h3>My Doctor Appointments & Consultations</h3>
+            <button type="button" class="btn-outline-sm" onclick="window.jcfApp.openAppointmentModal();">📅 Schedule New</button>
+          </div>
+
+          <div id="patient-appointments-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Patient Notifications & Medical Tips -->
+        <div class="panel-section-box" style="margin-top:1.5rem;">
+          <div class="panel-box-header">
+            <h3>Notifications & Care Guidelines</h3>
+          </div>
+          <div id="patient-notifs-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 🤝 VOLUNTEER PORTAL MODAL VIEW ==================== -->
+  <div class="modal-overlay" id="volunteer-portal-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card panel-modal-width">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <!-- Volunteer Header Banner -->
+      <div class="panel-header-banner volunteer-banner">
+        <div class="panel-user-info">
+          <div class="panel-avatar">🤝</div>
+          <div>
+            <div class="panel-role-tag">Volunteer Hero Portal</div>
+            <h2 class="panel-user-name" id="vol-portal-name">Dr. Sameer Siddiqui</h2>
+            <div class="panel-user-meta" id="vol-portal-meta">🩺 Doctor / Specialist • 📍 New Delhi • ⭐ 4.9 Rating • 🟢 Verified & Active</div>
+          </div>
+        </div>
+        <div class="panel-header-actions">
+          <button type="button" class="btn-outline-sm" id="vol-toggle-avail-btn">
+            🟢 Status: Active
+          </button>
+          <button type="button" class="btn-outline-sm" onclick="window.jcfApp.logout();">
+            🚪 Logout
+          </button>
+        </div>
+      </div>
+
+      <!-- Volunteer Panel Body -->
+      <div class="volunteer-panel-body">
+        <!-- Assigned Tasks & Deliveries -->
+        <div class="panel-section-box">
+          <div class="panel-box-header">
+            <h3>Assigned Patient Aid Cases & Field Deliveries</h3>
+            <span class="badge-pill-cyan">Direct Action Queue</span>
+          </div>
+
+          <div id="volunteer-tasks-container">
+            <!-- Rendered by JavaScript -->
+          </div>
+        </div>
+
+        <!-- Volunteer Impact Stats -->
+        <div class="volunteer-stats-grid" style="margin-top:1.5rem;">
+          <div class="vol-stat-card">
+            <span class="vol-stat-val" id="vol-stat-assigned">3</span>
+            <span class="vol-stat-lbl">Cases Assigned</span>
+          </div>
+          <div class="vol-stat-card">
+            <span class="vol-stat-val" id="vol-stat-completed">2</span>
+            <span class="vol-stat-lbl">Cases Resolved</span>
+          </div>
+          <div class="vol-stat-card">
+            <span class="vol-stat-val">⭐ 4.9</span>
+            <span class="vol-stat-lbl">Peer Rating</span>
+          </div>
+          <div class="vol-stat-card">
+            <span class="vol-stat-val">🎖️ Level 3</span>
+            <span class="vol-stat-lbl">Hero Badge</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 👨‍💼 ADMIN MANAGEMENT DASHBOARD OVERLAY ==================== -->
+  <div class="admin-overlay" id="admin-panel-overlay">
+    <div class="admin-wrapper">
+      
+      <!-- Admin Sidebar Navigation -->
+      <aside class="admin-sidebar" id="admin-sidebar">
+        <div class="admin-sidebar-header">
+          <div class="logo-icon-box">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 7v6"/><path d="M9 10h6"/></svg>
+          </div>
+          <div class="admin-brand-text">
+            <span class="admin-brand-title">JCF Admin</span>
+            <span class="admin-brand-sub">Master Control Room</span>
+          </div>
+          <button type="button" class="sidebar-close-mobile" id="admin-sidebar-close-btn">✕</button>
+        </div>
+
+        <nav class="admin-nav-menu">
+          <button type="button" class="admin-nav-item active" data-tab="dashboard">
+            <span class="admin-nav-icon">📊</span>
+            <span>Dashboard Overview</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="patients">
+            <span class="admin-nav-icon">👥</span>
+            <span>Patient Requests</span>
+            <span class="admin-nav-badge" id="admin-badge-patients">4</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="volunteers">
+            <span class="admin-nav-icon">🤝</span>
+            <span>Volunteer Heroes</span>
+            <span class="admin-nav-badge" id="admin-badge-volunteers">4</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="doctors">
+            <span class="admin-nav-icon">🩺</span>
+            <span>Doctors & Staff</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="appointments">
+            <span class="admin-nav-icon">📅</span>
+            <span>Appointments</span>
+            <span class="admin-nav-badge" id="admin-badge-appointments">3</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="enquiries">
+            <span class="admin-nav-icon">📬</span>
+            <span>Contact & Enquiries</span>
+            <span class="admin-nav-badge" id="admin-badge-enquiries">2</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="faqs">
+            <span class="admin-nav-icon">❓</span>
+            <span>FAQ Management</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="ai-control">
+            <span class="admin-nav-icon">🤖</span>
+            <span>Chatbot & AI Triage</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="reports">
+            <span class="admin-nav-icon">📈</span>
+            <span>Reports & Analytics</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="notifications">
+            <span class="admin-nav-icon">🔔</span>
+            <span>Broadcast Alerts</span>
+          </button>
+          <button type="button" class="admin-nav-item" data-tab="settings">
+            <span class="admin-nav-icon">⚙️</span>
+            <span>Profile & Backup</span>
+          </button>
+        </nav>
+
+        <div class="admin-sidebar-footer">
+          <div class="admin-profile-pill">
+            <span class="admin-avatar">👨‍💼</span>
+            <div class="admin-pill-text">
+              <strong>Admin HQ</strong>
+              <small>superadmin@jcf.org</small>
+            </div>
+          </div>
+          <button type="button" class="btn-sidebar-exit" onclick="window.jcfApp.closeAdminPanel();" title="Return to Public Website">
+            🌐 Public View
+          </button>
+        </div>
+      </aside>
+
+      <!-- Admin Main View Area -->
+      <main class="admin-main">
+        <!-- Admin Top Navigation Bar -->
+        <header class="admin-topbar">
+          <div class="admin-topbar-left">
+            <button type="button" class="admin-menu-toggle" id="admin-menu-toggle-btn">☰</button>
+            <div class="admin-breadcrumbs">
+              <span id="admin-active-tab-title">Dashboard Overview</span>
+            </div>
+          </div>
+
+          <div class="admin-topbar-right">
+            <div class="admin-clock" id="admin-live-clock">12:00:00 PM</div>
+            <button type="button" class="btn-outline-sm" onclick="window.jcfApp.openAppointmentModal();">
+              ➕ New Consult
+            </button>
+            <button type="button" class="btn-outline-sm" onclick="window.jcfApp.closeAdminPanel();">
+              🌐 View Website
+            </button>
+            <button type="button" class="btn-primary-sm" onclick="window.jcfApp.logout();">
+              🚪 Logout
+            </button>
+          </div>
+        </header>
+
+        <!-- Admin Tab 1: DASHBOARD -->
+        <div class="admin-tab-content active" id="tab-dashboard">
+          <!-- Critical Emergency Alert Banner -->
+          <div class="admin-alert-banner" id="admin-emergency-alert-box">
+            <div class="alert-icon">🚨</div>
+            <div class="alert-content">
+              <h4>Emergency Patient Alert</h4>
+              <p id="admin-emergency-text">1 critical emergency case awaiting medical board clearance: Rohan Sharma (Pediatric Care).</p>
+            </div>
+            <button type="button" class="btn-alert-action" onclick="window.jcfApp.filterPatients('Emergency')">Review Now →</button>
+          </div>
+
+          <!-- KPI Metric Cards Grid -->
+          <div class="admin-kpi-grid">
+            <div class="kpi-card kpi-blue">
+              <div class="kpi-icon">👥</div>
+              <div class="kpi-details">
+                <span class="kpi-title">Total Patients</span>
+                <h3 class="kpi-value" id="kpi-total-patients">0</h3>
+                <span class="kpi-sub" id="kpi-patients-sub">Active support database</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-teal">
+              <div class="kpi-icon">🤝</div>
+              <div class="kpi-details">
+                <span class="kpi-title">Total Volunteers</span>
+                <h3 class="kpi-value" id="kpi-total-volunteers">0</h3>
+                <span class="kpi-sub" id="kpi-volunteers-sub">Verified healthcare heroes</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-amber">
+              <div class="kpi-icon">⏳</div>
+              <div class="kpi-details">
+                <span class="kpi-title">Pending Requests</span>
+                <h3 class="kpi-value" id="kpi-pending-requests">0</h3>
+                <span class="kpi-sub">Awaiting board approval</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-purple">
+              <div class="kpi-icon">📅</div>
+              <div class="kpi-details">
+                <span class="kpi-title">Appointments</span>
+                <h3 class="kpi-value" id="kpi-total-appointments">0</h3>
+                <span class="kpi-sub">Tele-OPD & in-person</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-green">
+              <div class="kpi-icon">📬</div>
+              <div class="kpi-details">
+                <span class="kpi-title">New Enquiries</span>
+                <h3 class="kpi-value" id="kpi-new-inquiries">0</h3>
+                <span class="kpi-sub">Contact messages inbox</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dashboard Two-Column Content -->
+          <div class="admin-dash-grid">
+            <!-- Urgent Action Cases -->
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>Priority Patient Aid Cases</h3>
+                <button type="button" class="btn-text-sm" onclick="window.jcfApp.switchAdminTab('patients')">View All →</button>
+              </div>
+              <div class="table-responsive">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Ref ID</th>
+                      <th>Patient</th>
+                      <th>Aid Type</th>
+                      <th>Priority</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-priority-table-body">
+                    <!-- Populated by JavaScript -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Recent Activity Stream -->
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>Live Activity & Audit Feed</h3>
+                <span class="badge-pill-cyan">Real-Time</span>
+              </div>
+              <div class="activity-feed-list" id="dash-activity-feed">
+                <!-- Populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 2: PATIENT MANAGEMENT -->
+        <div class="admin-tab-content" id="tab-patients">
+          <div class="admin-card-panel">
+            <div class="admin-panel-header flex-wrap">
+              <div>
+                <h3>Patient Support Request Management</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Manage status lifecycle, review AI clinical summaries, assign doctors and volunteers.</p>
+              </div>
+              <div class="table-controls-group">
+                <input type="text" id="patient-table-search" class="admin-search-input" placeholder="Search patient name, ID, city...">
+                <select id="patient-status-filter" class="admin-select-filter">
+                  <option value="All">All Statuses</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Under Review">Under Review</option>
+                  <option value="Approved">Approved</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Completed">Completed</option>
+                </select>
+                <select id="patient-priority-filter" class="admin-select-filter">
+                  <option value="All">All Priorities</option>
+                  <option value="Emergency">Emergency</option>
+                  <option value="Urgent">Urgent</option>
+                  <option value="Normal">Normal</option>
+                </select>
+                <button type="button" class="btn-primary-sm" onclick="window.jcfApp.navigateToSection('patient-form'); window.jcfApp.closeAdminPanel();">
+                  ➕ Add Patient
+                </button>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Patient Name</th>
+                    <th>Dept & Aid Type</th>
+                    <th>City / Phone</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Assigned To</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="patients-master-table-body">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 3: VOLUNTEER MANAGEMENT -->
+        <div class="admin-tab-content" id="tab-volunteers">
+          <div class="admin-card-panel">
+            <div class="admin-panel-header flex-wrap">
+              <div>
+                <h3>Volunteer Heroes & Staff Management</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Verify volunteer registrations, view availability, and manage case assignments.</p>
+              </div>
+              <div class="table-controls-group">
+                <input type="text" id="vol-table-search" class="admin-search-input" placeholder="Search volunteer name, specialty...">
+                <select id="vol-role-filter" class="admin-select-filter">
+                  <option value="All">All Roles</option>
+                  <option value="Doctor / Medical Specialist">Doctor</option>
+                  <option value="Registered Nurse / Paramedic">Nurse</option>
+                  <option value="Blood / Platelet Donor">Blood Donor</option>
+                  <option value="Field Camp Coordinator">Coordinator</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Volunteer ID</th>
+                    <th>Name</th>
+                    <th>Designated Role & Skills</th>
+                    <th>City & Contact</th>
+                    <th>Availability</th>
+                    <th>Status</th>
+                    <th>Assigned Cases</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="volunteers-master-table-body">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 4: DOCTORS & STAFF DIRECTORY -->
+        <div class="admin-tab-content" id="tab-doctors">
+          <div class="admin-card-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h3>Honorary Medical Specialists & Advisory Board</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Directory of volunteer physicians conducting consultations and surgery verifications.</p>
+              </div>
+              <button type="button" class="btn-primary-sm" onclick="window.jcfApp.openAppointmentModal();">
+                📅 Schedule Doctor OPD
+              </button>
+            </div>
+
+            <div class="doctors-admin-grid" id="admin-doctors-grid">
+              <!-- Populated by JavaScript -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 5: APPOINTMENT MANAGEMENT -->
+        <div class="admin-tab-content" id="tab-appointments">
+          <div class="admin-card-panel">
+            <div class="admin-panel-header flex-wrap">
+              <div>
+                <h3>Doctor Appointments & Tele-OPD Schedules</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Manage patient consultation bookings, video room links, and clinic schedules.</p>
+              </div>
+              <button type="button" class="btn-primary-sm" onclick="window.jcfApp.openAppointmentModal();">
+                ➕ Schedule New Appointment
+              </button>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Appt ID</th>
+                    <th>Patient Name</th>
+                    <th>Doctor</th>
+                    <th>Department & Type</th>
+                    <th>Date & Time</th>
+                    <th>Status</th>
+                    <th>Meeting / Clinic</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="appointments-master-table-body">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 6: CONTACT & ENQUIRIES -->
+        <div class="admin-tab-content" id="tab-enquiries">
+          <div class="admin-card-panel">
+            <div class="admin-panel-header">
+              <div>
+                <h3>General Enquiries & Hotline Messages</h3>
+                <p style="font-size:0.85rem; color:var(--text-muted);">Messages from donors, hospital coordinators, and public citizens.</p>
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Ref ID</th>
+                    <th>Sender Name</th>
+                    <th>Email / Phone</th>
+                    <th>Subject & Message</th>
+                    <th>Received At</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="enquiries-master-table-body">
+                  <!-- Populated by JavaScript -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 7: FAQ MANAGEMENT -->
+        <div class="admin-tab-content" id="tab-faqs">
+          <div class="admin-dash-grid">
+            <!-- Add / Edit FAQ Form -->
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3 id="admin-faq-form-title">Add New FAQ</h3>
+              </div>
+              <form id="admin-faq-form">
+                <input type="hidden" id="admin-faq-id" value="">
+                <div class="form-group">
+                  <label class="form-label">Category</label>
+                  <select id="admin-faq-category" class="form-select" required>
+                    <option value="Patient Aid">Patient Aid</option>
+                    <option value="Medicines">Medicines</option>
+                    <option value="Surgeries">Surgeries</option>
+                    <option value="Volunteering">Volunteering</option>
+                    <option value="General">General</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Question</label>
+                  <input type="text" id="admin-faq-question" class="form-input" placeholder="e.g. How to track medicine delivery?" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Answer</label>
+                  <textarea id="admin-faq-answer" class="form-textarea" placeholder="Detailed answer provided to patients & visitors..." required></textarea>
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                  <button type="submit" class="btn-primary" style="flex:1; justify-content:center;">Save FAQ Entry</button>
+                  <button type="button" class="btn-outline" id="admin-faq-cancel-btn" style="display:none;">Cancel</button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Existing FAQs List -->
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>Live FAQ Database</h3>
+              </div>
+              <div class="admin-faq-list" id="admin-faqs-table-body">
+                <!-- Populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 8: CHATBOT & AI MANAGEMENT -->
+        <div class="admin-tab-content" id="tab-ai-control">
+          <div class="admin-dash-grid">
+            <!-- AI Query Logs -->
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>CareBot AI Query Logs</h3>
+                <span class="badge-pill-cyan">Live Interactions</span>
+              </div>
+              <div class="ai-query-logs-list" id="admin-ai-logs-container">
+                <!-- Populated by JavaScript -->
+              </div>
+            </div>
+
+            <!-- AI Engine Settings & Sandbox Tester -->
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>AI Clinical Triage Sandbox</h3>
+              </div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1rem;">Test the AI Clinical Triage engine with patient symptoms to verify automated summary accuracy.</p>
+
+              <form id="ai-sandbox-form">
+                <div class="form-group">
+                  <label class="form-label">Sample Patient Medical Details</label>
+                  <textarea id="ai-sandbox-input" class="form-textarea" placeholder="e.g. 52 year old male from Delhi with acute chest pain and chronic heart disease needing monthly Bisoprolol and hospital admission grant..."></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.75rem;">
+                  🤖 Generate AI Clinical Triage Summary
+                </button>
+              </form>
+
+              <div class="ai-sandbox-result" id="ai-sandbox-result" style="display:none; margin-top:1rem;">
+                <h4>Generated Triage Summary:</h4>
+                <div class="ai-sandbox-code" id="ai-sandbox-output"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 9: REPORTS & ANALYTICS -->
+        <div class="admin-tab-content" id="tab-reports">
+          <div class="admin-card-panel">
+            <div class="admin-panel-header">
+              <h3>Healthcare Outreach Analytics & Relief Reports</h3>
+              <button type="button" class="btn-outline-sm" onclick="window.print()">🖨️ Export PDF Report</button>
+            </div>
+
+            <div class="reports-grid">
+              <div class="report-box">
+                <h4>Aid Distribution by Department</h4>
+                <div class="chart-bar-row">
+                  <span>Cardiology</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill" style="width: 35%;"></div></div>
+                  <span>35%</span>
+                </div>
+                <div class="chart-bar-row">
+                  <span>Medicine Bank</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill fill-teal" style="width: 28%;"></div></div>
+                  <span>28%</span>
+                </div>
+                <div class="chart-bar-row">
+                  <span>Pediatric Care</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill fill-purple" style="width: 20%;"></div></div>
+                  <span>20%</span>
+                </div>
+                <div class="chart-bar-row">
+                  <span>Diagnostics & Others</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill fill-amber" style="width: 17%;"></div></div>
+                  <span>17%</span>
+                </div>
+              </div>
+
+              <div class="report-box">
+                <h4>Status Resolution Lifecycle</h4>
+                <div class="chart-bar-row">
+                  <span>Approved & Active</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill fill-green" style="width: 45%;"></div></div>
+                  <span>45%</span>
+                </div>
+                <div class="chart-bar-row">
+                  <span>Completed Cases</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill fill-teal" style="width: 30%;"></div></div>
+                  <span>30%</span>
+                </div>
+                <div class="chart-bar-row">
+                  <span>Pending Triage</span>
+                  <div class="chart-bar-track"><div class="chart-bar-fill fill-amber" style="width: 25%;"></div></div>
+                  <span>25%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 10: BROADCAST NOTIFICATIONS -->
+        <div class="admin-tab-content" id="tab-notifications">
+          <div class="admin-dash-grid">
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>Broadcast Notification Dispatcher</h3>
+              </div>
+              <form id="admin-broadcast-form">
+                <div class="form-group">
+                  <label class="form-label">Target Audience</label>
+                  <select id="broadcast-recipient" class="form-select" required>
+                    <option value="all">All (Public, Patients & Volunteers)</option>
+                    <option value="patient">Patients & Beneficiaries</option>
+                    <option value="doctor">Honorary Doctors & Specialists</option>
+                    <option value="volunteer">Volunteer Heroes & Field Staff</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Notification Title</label>
+                  <input type="text" id="broadcast-title" class="form-input" placeholder="e.g. Free Cataract Camp This Saturday" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Message Details</label>
+                  <textarea id="broadcast-message" class="form-textarea" placeholder="Write the announcement or alert..." required></textarea>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem;">
+                  📢 Dispatch Live Broadcast
+                </button>
+              </form>
+            </div>
+
+            <div class="admin-card-panel">
+              <div class="admin-panel-header">
+                <h3>Recent Sent Notifications</h3>
+              </div>
+              <div class="admin-notifs-sent-list" id="admin-notifs-history">
+                <!-- Populated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Admin Tab 11: PROFILE & BACKUP SETTINGS -->
+        <div class="admin-tab-content" id="tab-settings">
+          <div class="admin-card-panel" style="max-width:700px;">
+            <div class="admin-panel-header">
+              <h3>System Settings & Database Backup</h3>
+            </div>
+            
+            <div class="settings-group-box">
+              <h4>Database Backup & Portability</h4>
+              <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">Download full JSON backup of all patient cases, volunteer records, appointments, and inquiries.</p>
+              <div style="display:flex; gap:0.75rem; flex-wrap:wrap;">
+                <button type="button" class="btn-primary" id="btn-export-database">
+                  💾 Export JSON Database
+                </button>
+                <button type="button" class="btn-outline-danger" id="btn-reset-demo-data">
+                  🔄 Reset Demo Seed Data
+                </button>
+              </div>
+            </div>
+
+            <div class="settings-group-box" style="margin-top:1.5rem;">
+              <h4>Administrator Credentials</h4>
+              <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">Signed in as <strong>Super Admin</strong> (Full Privileges).</p>
+              <button type="button" class="btn-outline" onclick="window.jcfApp.logout();">
+                🚪 Logout Administrator
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- ==================== SUBMISSION CONFIRMATION MODAL ==================== -->
+  <div class="modal-overlay" id="confirmation-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+      
+      <div class="conf-header">
+        <div class="conf-check-icon">✓</div>
+        <h3 class="conf-title" id="conf-title">Submission Confirmed!</h3>
+        <p class="conf-subtitle" id="conf-subtitle">Your healthcare request has been securely recorded.</p>
+      </div>
+
+      <div class="conf-id-banner">
+        <div>
+          <span class="conf-id-label">Application Reference ID</span>
+          <div class="conf-id-code" id="conf-id">JCF-PAT-0000</div>
+        </div>
+        <span class="status-badge" id="conf-badge">Under Active Review</span>
+      </div>
+
+      <div class="conf-details-list" id="conf-details-list">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="conf-note" id="conf-note">
+        A dedicated JCF medical coordinator will call the registered phone number to coordinate aid.
+      </div>
+
+      <div class="conf-actions">
+        <button type="button" class="btn-outline" id="print-receipt-btn">
+          🖨️ Print / Download Slip
+        </button>
+        <button type="button" class="btn-primary modal-close-btn" style="position:static; width:auto; height:auto; border-radius:var(--radius-full);">
+          Done & Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== APPLICATION TRACKER & SEARCH MODAL ==================== -->
+  <div class="modal-overlay" id="tracker-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card tracker-modal-width">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+      
+      <div class="form-card-header" style="border:none; padding-bottom:0; margin-bottom:1.25rem;">
+        <span class="form-badge-pill badge-patient-form">Live Verification</span>
+        <h3 class="form-card-title">Live Application Status Tracker</h3>
+        <p class="form-card-subtitle">Search by Reference ID (e.g. JCF-PAT-7814 or JCF-APT-301) or patient name.</p>
+      </div>
+
+      <div class="tracker-search-bar">
+        <input type="text" id="tracker-search-input" class="tracker-search-input" placeholder="Enter Reference ID or Patient / Volunteer Name...">
+        <button type="button" class="btn-primary" id="tracker-search-btn">Search</button>
+      </div>
+
+      <div class="tracker-results-container" id="tracker-results-container">
+        <!-- Populated dynamically by storage + app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== DOCTOR APPOINTMENT BOOKING MODAL ==================== -->
+  <div class="modal-overlay" id="appointment-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card appointment-modal-card">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <div class="form-card-header" style="border:none; padding-bottom:0; margin-bottom:1.25rem;">
+        <span class="form-badge-pill badge-patient-form">Medical Consultation</span>
+        <h3 class="form-card-title">Book Free Doctor Consultation</h3>
+        <p class="form-card-subtitle">Schedule a tele-health consultation or free OPD camp appointment with our specialists.</p>
+      </div>
+
+      <form id="appointment-booking-form">
+        <!-- Patient Name & Contact -->
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label class="form-label">Patient Name <span class="req">*</span></label>
+            <input type="text" id="apt-patient-name" class="form-input" placeholder="e.g. Amina Khatun" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="apt-patient-phone" class="form-input" placeholder="e.g. 9876543210" required>
+          </div>
+        </div>
+
+        <!-- Department & Specialist in 2 spacious columns -->
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label class="form-label">Department / Wing <span class="req">*</span></label>
+            <select id="apt-dept-select" class="form-select" required>
+              <option value="Cardiology">Cardiology & Heart Care</option>
+              <option value="Pediatric Care">Pediatric Care</option>
+              <option value="General Medicine">General Medicine</option>
+              <option value="Oncology">Oncology Support</option>
+              <option value="Medicine Bank">Medicine Bank & Diabetes</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Specialist</label>
+            <select id="appointment-doctor" class="form-select">
+              <option value="">Auto-Assign Best Specialist</option>
+              <option value="DOC-101">Dr. Rajesh Varma (Cardiology)</option>
+              <option value="DOC-102">Dr. Ananya Roy (Oncology)</option>
+              <option value="DOC-103">Dr. Sameer Siddiqui (Pediatrics)</option>
+              <option value="DOC-104">Dr. Pooja Nair (Orthopedics)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Consultation Mode & Preferred Date -->
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label class="form-label">Consultation Mode <span class="req">*</span></label>
+            <select id="apt-type-select" class="form-select" required>
+              <option value="Tele-Consultation (Video/Audio)">Tele-Consultation (Video/Audio)</option>
+              <option value="Doctor Phone Callback">Doctor Phone Callback</option>
+              <option value="In-Person OPD Camp Visit">In-Person OPD Camp Visit</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Preferred Date <span class="req">*</span></label>
+            <input type="date" id="apt-date" class="form-input" required>
+          </div>
+        </div>
+
+        <!-- Preferred Time Slot -->
+        <div class="form-group">
+          <label class="form-label">Preferred Time Slot <span class="req">*</span></label>
+          <select id="apt-time" class="form-select" required>
+            <option value="10:00 AM">10:00 AM (Morning Slot)</option>
+            <option value="11:30 AM">11:30 AM (Morning Slot)</option>
+            <option value="02:30 PM">02:30 PM (Afternoon Slot)</option>
+            <option value="04:30 PM">04:30 PM (Evening Slot)</option>
+            <option value="06:00 PM">06:00 PM (Evening Slot)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Chief Medical Complaint / Symptoms <span class="req">*</span></label>
+          <textarea id="apt-symptoms" class="form-textarea" placeholder="Briefly describe what symptoms you want to discuss with the doctor..." rows="3" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem; font-size:0.95rem;">
+          Confirm Appointment Request →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== DOCTOR CONSULTATION NOTES MODAL ==================== -->
+  <div class="modal-overlay" id="consultation-notes-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <div class="form-card-header" style="border:none; padding-bottom:0; margin-bottom:1.25rem;">
+        <span class="form-badge-pill badge-patient-form">Clinical Documentation</span>
+        <h3 class="form-card-title">Record Consultation Notes</h3>
+        <p class="form-card-subtitle" id="consultation-notes-patient-info">Patient: Amina Khatun • Appointment: JCF-APT-301</p>
+      </div>
+
+      <form id="consultation-notes-form">
+        <input type="hidden" id="notes-appointment-id" value="">
+
+        <div class="form-group">
+          <label class="form-label">Patient Reported Symptoms / Complaints <span class="req">*</span></label>
+          <input type="text" id="notes-symptoms" class="form-input" placeholder="e.g. Mild chest heaviness on climbing stairs, hypertension" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Clinical Observations & Evaluation <span class="req">*</span></label>
+          <textarea id="notes-observations" class="form-textarea" placeholder="e.g. BP 130/85 mmHg, Pulse 76 bpm. S1 S2 normal. Heart failure stable on current dosage..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Doctor Advice & Non-Emergency Instructions <span class="req">*</span></label>
+          <textarea id="notes-advice" class="form-textarea" placeholder="e.g. Continue Enalapril 5mg and Bisoprolol 2.5mg. Low salt diet. Daily 20 min walk. Maintain BP log..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Recommended Follow-up Date (Optional)</label>
+          <input type="date" id="notes-followup-date" class="form-input">
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem;">
+          💾 Save Consultation Notes & Complete →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== DOCTOR PROFILE EDIT MODAL ==================== -->
+  <div class="modal-overlay" id="doctor-profile-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <div class="form-card-header" style="border:none; padding-bottom:0; margin-bottom:1.25rem;">
+        <span class="form-badge-pill badge-patient-form">Profile Settings</span>
+        <h3 class="form-card-title">Edit Doctor Profile & Availability</h3>
+        <p class="form-card-subtitle">Update your clinical specialty, hospital affiliations, and OPD schedule.</p>
+      </div>
+
+      <form id="doctor-profile-edit-form">
+        <div class="form-group">
+          <label class="form-label">Specialization / Wing</label>
+          <input type="text" id="doc-edit-specialty" class="form-input" placeholder="e.g. Cardiology & Heart Care" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Medical Qualifications</label>
+          <input type="text" id="doc-edit-qualifications" class="form-input" placeholder="e.g. MBBS, MD, DM (Cardiology)" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Hospital Affiliation / Clinic</label>
+          <input type="text" id="doc-edit-hospital" class="form-input" placeholder="e.g. Apollo Hospitals & JCF Foundation" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Consultation Schedule & OPD Days</label>
+          <input type="text" id="doc-edit-timing" class="form-input" placeholder="e.g. Mon, Wed, Fri (2:00 PM - 6:00 PM)" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Contact Phone</label>
+          <input type="tel" id="doc-edit-phone" class="form-input" placeholder="+91 98111 00221" required>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem;">
+          Update Doctor Profile →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== PATIENT DETAIL & AI TRIAGE MODAL ==================== -->
+  <div class="modal-overlay" id="patient-detail-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card tracker-modal-width">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <div class="patient-detail-header" id="modal-patient-header">
+        <!-- Injected dynamically -->
+      </div>
+
+      <div class="patient-detail-body" id="modal-patient-body">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== ADMIN ACTION (STATUS & ASSIGN) MODAL ==================== -->
+  <div class="modal-overlay" id="admin-action-modal">
+    <div class="modal-backdrop"></div>
+    <div class="modal-content-card">
+      <button type="button" class="modal-close-btn" aria-label="Close modal">✕</button>
+
+      <div class="form-card-header" style="border:none; padding-bottom:0; margin-bottom:1.25rem;">
+        <span class="form-badge-pill badge-patient-form">Admin Action</span>
+        <h3 class="form-card-title">Update Request & Assign Volunteer</h3>
+        <p class="form-card-subtitle" id="action-modal-sub">Case: JCF-PAT-XXXX</p>
+      </div>
+
+      <form id="admin-update-status-form">
+        <input type="hidden" id="action-target-id" value="">
+
+        <div class="form-group">
+          <label class="form-label">Update Status Lifecycle</label>
+          <select id="action-status-select" class="form-select" required>
+            <option value="Pending">Pending (Initial Intake)</option>
+            <option value="Under Review">Under Review (Medical Board)</option>
+            <option value="Approved">Approved (Grant/Voucher Sanctioned)</option>
+            <option value="In Progress">In Progress (Delivery/Hospital Active)</option>
+            <option value="Completed">Completed (Delivered & Closed)</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Assign Volunteer Hero (Delivery / Coordination)</label>
+          <select id="action-volunteer-select" class="form-select">
+            <option value="">-- Do Not Change / Unassigned --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Assign Consulting Doctor</label>
+          <select id="action-doctor-select" class="form-select">
+            <option value="">-- Do Not Change / Unassigned --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Admin Review Note (Visible to Patient & Volunteer)</label>
+          <textarea id="action-admin-note" class="form-textarea" placeholder="e.g. Prescription validated with AIIMS record. Sanctioned 3-month supply..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem;">
+          Save Updates & Notify Patient →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT INCLUDES ==================== -->
+  <script src="js/api.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

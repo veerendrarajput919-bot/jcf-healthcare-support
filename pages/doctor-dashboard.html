@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Doctor & Specialist Clinical Dashboard - JCF Healthcare Support</title>
+  <meta name="description" content="JCF Healthcare Doctor Portal. Manage outpatient consultations, clinical triage, digital prescriptions, and patient records.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .dashboard-layout {
+      min-height: 100vh;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+    }
+    .dash-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(15, 41, 66, 0.04);
+    }
+    .dash-main-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      flex-grow: 1;
+    }
+    .doctor-header-card {
+      background: linear-gradient(135deg, #1e3a8a 0%, #0369a1 100%);
+      color: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px -5px rgba(3, 105, 161, 0.25);
+    }
+    .doc-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .doc-kpi-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(15, 41, 66, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: var(--transition);
+    }
+    .doc-kpi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(15, 41, 66, 0.08);
+      border-color: var(--doctor-blue);
+    }
+    .doc-tab-pane {
+      display: none;
+    }
+    .doc-tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 900px) {
+      .doc-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .doc-kpi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="dashboard-layout">
+
+  <!-- Topbar Header -->
+  <header class="dash-topbar">
+    <a href="../index.html" class="brand-logo" title="Back to JCF Healthcare Support Home">
+      <div class="logo-icon-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+          <path d="M12 7v6M9 10h6"/>
+        </svg>
+      </div>
+      <div class="logo-text-group">
+        <span class="logo-title">JCF Healthcare</span>
+        <span class="logo-tag">Specialist Doctor Panel</span>
+      </div>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:0.85rem;">
+      <button type="button" class="btn-outline-sm btn-avail-toggle" id="doc-avail-btn" onclick="toggleDoctorAvail()">
+        🟢 Status: Available for OPD
+      </button>
+      <a href="../index.html" class="btn-outline-sm" title="View Public Website">🌐 Main Site</a>
+      <button type="button" class="btn-outline-danger-sm" onclick="logoutDoctor()">🚪 Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dash-main-container">
+    
+    <!-- Doctor Header Card -->
+    <div class="doctor-header-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.25rem;">
+        <div style="display:flex; align-items:center; gap:1.25rem;">
+          <div style="width:68px; height:68px; border-radius:50%; background:#ffffff; color:var(--doctor-blue); display:flex; align-items:center; justify-content:center; font-size:2.4rem; border:3px solid #bfdbfe; box-shadow:0 6px 20px rgba(0,0,0,0.15);">
+            👨‍⚕️
+          </div>
+          <div>
+            <span style="background:rgba(255,255,255,0.2); padding:3px 10px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; text-transform:uppercase;">Honorary Advisory Specialist</span>
+            <h1 style="font-size:1.85rem; font-weight:800; margin:0.35rem 0 0.2rem;" id="doc-name-title">Dr. Rajesh Varma</h1>
+            <p style="color:#e0f2fe; font-size:0.88rem;" id="doc-specialty-sub">MBBS, MD, DM (Cardiology) • AIIMS Alum • Apollo Hospitals & JCF Advisory Board</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button type="button" class="btn-primary" onclick="showDoctorTab('consult-notes')">📝 Record Consultation Notes</button>
+          <button type="button" class="btn-outline" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.4);" onclick="showDoctorTab('appointments')">📅 View Today's Schedule</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor KPI Grid -->
+    <div class="doc-kpi-grid">
+      <div class="doc-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-blue">📅</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Today's Appointments</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--dark-navy);" id="kpi-doc-today">5</div>
+        </div>
+      </div>
+
+      <div class="doc-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-teal">👥</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Total Assigned Patients</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--dark-navy);" id="kpi-doc-patients">28</div>
+        </div>
+      </div>
+
+      <div class="doc-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-orange">⏳</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Pending Requests</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--urgent-orange);" id="kpi-doc-pending">3</div>
+        </div>
+      </div>
+
+      <div class="doc-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-green">✅</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Completed Consults</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--success-green);" id="kpi-doc-completed">12</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Doctor Navigation Tabs -->
+    <div class="dash-tabs-nav">
+      <button type="button" class="dash-tab-btn active" onclick="showDoctorTab('queue')" id="tab-doc-queue">
+        📊 Queue & Triage
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showDoctorTab('appointments')" id="tab-doc-appointments">
+        📅 Appointments (<span id="tab-doc-apts-count">4</span>)
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showDoctorTab('patients')" id="tab-doc-patients">
+        👥 My Patients Directory
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showDoctorTab('consult-notes')" id="tab-doc-consult-notes">
+        📝 Consultation & E-Prescription
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showDoctorTab('profile')" id="tab-doc-profile">
+        ⚙️ OPD Schedule & Profile
+      </button>
+    </div>
+
+    <!-- Tab 1: QUEUE & TRIAGE -->
+    <div class="doc-tab-pane active" id="pane-doc-queue">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Active Tele-Consultation & OPD Queue</h3>
+          <span class="badge-pill-cyan">Live Real-Time Sync</span>
+        </div>
+        <div id="doctor-queue-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: APPOINTMENTS -->
+    <div class="doc-tab-pane" id="pane-doc-appointments">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Scheduled Consultation Roster</h3>
+        </div>
+        <div id="doctor-appointments-table-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: MY PATIENTS -->
+    <div class="doc-tab-pane" id="pane-doc-patients">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Assigned Patients & Beneficiaries</h3>
+        </div>
+        <div id="doctor-patients-grid-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: CONSULTATION NOTES -->
+    <div class="doc-tab-pane" id="pane-doc-consult-notes">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Record Consultation Advice & Digital Prescription</h3>
+        </div>
+        <form id="doc-notes-form" onsubmit="handleSaveNotes(event)">
+          <div class="form-grid-2col">
+            <div class="form-group">
+              <label class="form-label">Select Consultation Appointment <span class="req">*</span></label>
+              <select id="doc-apt-select" class="form-select" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Recommended Follow-Up Date</label>
+              <input type="date" id="doc-followup-date" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Clinical Diagnosis & Medical Observations <span class="req">*</span></label>
+            <textarea id="doc-diagnosis-input" class="form-textarea" placeholder="Record diagnosis findings e.g. Chronic Heart Failure Stage-2, Blood Pressure stabilized..." required rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Prescribed Medicines & Pharmacy Dispatch Advice <span class="req">*</span></label>
+            <textarea id="doc-prescription-input" class="form-textarea" placeholder="List medications with dosage (e.g. 1. Tab Enalapril 5mg - 1 Tab OD, 2. Bisoprolol 2.5mg - 1 Tab OD x 30 days)..." required rows="3"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Lifestyle, Dietary & Emergency Advice</label>
+            <textarea id="doc-advice-input" class="form-textarea" placeholder="Diet restrictions, salt intake, emergency warning signs..." rows="2"></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary" style="padding:0.85rem 1.5rem;">
+            💾 Save Notes & Issue Verified E-Prescription
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tab 5: PROFILE -->
+    <div class="doc-tab-pane" id="pane-doc-profile">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Doctor Profile & OPD Availability Settings</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:1.25rem; font-size:0.92rem;">
+          <div><strong>Doctor Name:</strong> Dr. Rajesh Varma</div>
+          <div><strong>Specialty:</strong> Cardiology & Heart Care</div>
+          <div><strong>Hospital Affiliation:</strong> Apollo Hospitals & JCF Advisory Board</div>
+          <div><strong>Experience:</strong> 24+ Years</div>
+          <div><strong>Phone Contact:</strong> +91 98111 00221</div>
+          <div><strong>Official Email:</strong> dr.varma@jcfhealthcare.org</div>
+          <div style="grid-column:1/-1;"><strong>Available OPD Hours:</strong> Mon, Wed, Fri (2:00 PM - 6:00 PM)</div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/storage.js"></script>
+  <script>
+    function showDoctorTab(tabId) {
+      document.querySelectorAll('.doc-tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dash-tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById('pane-doc-' + tabId)?.classList.add('active');
+      document.getElementById('tab-doc-' + tabId)?.classList.add('active');
+    }
+
+    function toggleDoctorAvail() {
+      const user = window.jcfStorage.getCurrentUser();
+      const doctorId = user?.id || 'DOC-101';
+      const btn = document.getElementById('doc-avail-btn');
+      const isAvail = btn.textContent.includes('Available');
+      const newStatus = isAvail ? 'Busy / OPD Completed' : 'Available for OPD';
+      btn.textContent = isAvail ? '🟡 Status: Busy / OPD Completed' : '🟢 Status: Available for OPD';
+      if (window.jcfAPI) {
+        window.jcfAPI.updateDoctorAvailability(doctorId, newStatus).catch(() => {});
+      }
+      alert(`OPD Availability status updated to: ${newStatus}`);
+    }
+
+    function renderDoctorDashboard() {
+      const user = window.jcfStorage.getCurrentUser();
+      const doctorId = user?.id || 'DOC-101';
+      let doc = window.jcfStorage.getDoctorById(doctorId);
+      if (!doc && user?.name) {
+        doc = window.jcfStorage.getDoctors().find(d => d.name.toLowerCase().includes(user.name.toLowerCase()));
+      }
+      if (!doc) doc = window.jcfStorage.getDoctors()[0];
+
+      const activeDocId = doc ? doc.id : doctorId;
+      const appointments = window.jcfStorage.getDoctorAppointments(activeDocId);
+      const patients = window.jcfStorage.getDoctorPatients(activeDocId);
+
+      if (doc) {
+        const titleEl = document.getElementById('doc-name-title');
+        if (titleEl) titleEl.textContent = doc.name;
+        const subEl = document.getElementById('doc-specialty-sub');
+        if (subEl) subEl.textContent = `${doc.qualifications || 'MBBS'} • ${doc.hospitalAffiliation || 'JCF Medical Network'}`;
+      }
+
+      // Populate KPI counts
+      document.getElementById('kpi-doc-today').textContent = appointments.length || 5;
+      document.getElementById('kpi-doc-patients').textContent = patients.length || 28;
+      document.getElementById('kpi-doc-pending').textContent = appointments.filter(a => a.status === 'Pending').length || 3;
+      document.getElementById('kpi-doc-completed').textContent = appointments.filter(a => a.status === 'Completed').length || 12;
+      document.getElementById('tab-doc-apts-count').textContent = appointments.length;
+
+      // Populate Queue
+      const queueContainer = document.getElementById('doctor-queue-container');
+      if (queueContainer) {
+        if (appointments.length === 0) {
+          queueContainer.innerHTML = `<p style="text-align:center; color:var(--text-muted); padding:2rem;">No pending patients in queue.</p>`;
+        } else {
+          queueContainer.innerHTML = appointments.map(apt => `
+            <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; margin-bottom:1rem; background:var(--bg-subtle);">
+              <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+                <div>
+                  <span class="status-badge status-${apt.status.toLowerCase().replace(/\s+/g, '-')}">${apt.status}</span>
+                  <h4 style="font-size:1.15rem; margin:4px 0;">${apt.patientName} (${apt.type})</h4>
+                  <p style="font-size:0.85rem; color:var(--text-muted);">Phone: <strong>${apt.patientPhone || '+91 98765 43210'}</strong> • Slot: <strong>${apt.date} at ${apt.time}</strong></p>
+                </div>
+                <div style="display:flex; gap:0.5rem;">
+                  ${apt.meetingLink ? `<a href="${apt.meetingLink}" target="_blank" class="btn-primary-sm">🎥 Start Video Call</a>` : ''}
+                  <button type="button" class="btn-success-sm" onclick="completeConsult('${apt.id}')">✓ Mark Completed</button>
+                </div>
+              </div>
+              <p style="font-size:0.85rem; background:#ffffff; padding:0.75rem; border-radius:var(--radius-sm); border:1px solid #e2e8f0; margin-top:0.75rem;">
+                <strong>Chief Complaint:</strong> "${apt.symptoms || 'Cardiac follow-up review'}"
+              </p>
+            </div>
+          `).join('');
+        }
+      }
+
+      // Populate Appointment Select in Notes Form
+      const aptSelect = document.getElementById('doc-apt-select');
+      if (aptSelect) {
+        aptSelect.innerHTML = appointments.map(a => `<option value="${a.id}">${a.patientName} - ${a.date} (${a.time}) [${a.status}]</option>`).join('');
+      }
+
+      // Populate Patients Directory
+      const patGrid = document.getElementById('doctor-patients-grid-container');
+      if (patGrid) {
+        const allPatients = window.jcfStorage.getPatientRequests();
+        patGrid.innerHTML = `
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1rem;">
+            ${allPatients.map(p => `
+              <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+                  <strong>${p.name} (${p.age}y, ${p.city})</strong>
+                  <span class="status-badge status-${p.status.toLowerCase().replace(/\s+/g, '-')}">${p.status}</span>
+                </div>
+                <p style="font-size:0.82rem; color:var(--primary); font-weight:600;">${p.aidType}</p>
+                <p style="font-size:0.82rem; color:var(--text-muted); margin:4px 0;">"${p.details}"</p>
+                <small style="color:var(--text-light);">Ref ID: ${p.id}</small>
+              </div>
+            `).join('')}
+          </div>
+        `;
+      }
+    }
+
+    function completeConsult(aptId) {
+      window.jcfStorage.updateAppointmentStatus(aptId, 'Completed');
+      alert(`Appointment ${aptId} marked as Completed.`);
+      renderDoctorDashboard();
+    }
+
+    function handleSaveNotes(e) {
+      e.preventDefault();
+      const aptId = document.getElementById('doc-apt-select').value;
+      const diagnosis = document.getElementById('doc-diagnosis-input').value;
+      const prescription = document.getElementById('doc-prescription-input').value;
+      const followUp = document.getElementById('doc-followup-date').value;
+      const advice = document.getElementById('doc-advice-input').value;
+
+      window.jcfStorage.saveConsultationNotes(aptId, {
+        diagnosis,
+        prescription,
+        followUpDate: followUp,
+        lifestyleAdvice: advice
+      });
+
+      alert(`Consultation notes & E-Prescription issued for appointment ${aptId}!`);
+      document.getElementById('doc-notes-form').reset();
+      showDoctorTab('queue');
+      renderDoctorDashboard();
+    }
+
+    function logoutDoctor() {
+      window.jcfStorage.logout();
+      window.location.href = '../login.html';
+    }
+
+    window.addEventListener('DOMContentLoaded', renderDoctorDashboard);
+  </script>
+</body>
+</html>

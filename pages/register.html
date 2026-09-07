@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register & Apply - JCF Healthcare Support</title>
+  <meta name="description" content="Register as a Patient Beneficiary, Volunteer Hero, or Medical Specialist with JCF Healthcare Support NGO.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/>
+  <path d="M12 7v6M9 10h6"/>
+</svg>">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    body.register-body {
+      background: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .reg-topbar {
+      padding: 1.25rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .reg-container {
+      max-width: 720px;
+      width: 100%;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+      flex-grow: 1;
+    }
+    .reg-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 20px 50px -10px rgba(15, 41, 66, 0.1);
+      padding: 2.5rem;
+    }
+    .reg-role-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      margin-bottom: 1.75rem;
+    }
+    .reg-role-btn {
+      padding: 1rem 0.5rem;
+      border: 2px solid #e2e8f0;
+      border-radius: var(--radius-md);
+      background: var(--bg-subtle);
+      cursor: pointer;
+      text-align: center;
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: var(--transition);
+      color: var(--dark-navy);
+    }
+    .reg-role-btn:hover {
+      border-color: var(--primary);
+    }
+    .reg-role-btn.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+      color: var(--primary-hover);
+    }
+    @media (max-width: 600px) {
+      .reg-role-selector { grid-template-columns: 1fr; }
+      .reg-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+<body class="register-body">
+
+  <header class="reg-topbar">
+    <a href="../index.html" class="brand-logo">
+      <div class="logo-icon-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+          <path d="M12 7v6M9 10h6"/>
+        </svg>
+      </div>
+      <div class="logo-text-group">
+        <span class="logo-title">JCF Healthcare</span>
+        <span class="logo-tag">Registration Gateway</span>
+      </div>
+    </a>
+
+    <a href="../login.html" class="btn-outline-sm">Already have an ID? Sign In ➔</a>
+  </header>
+
+  <main class="reg-container">
+    <div class="reg-card">
+      <div class="form-card-header">
+        <span class="form-badge-pill badge-patient-form">Humanitarian Aid Registration</span>
+        <h2 class="form-card-title">Create Your JCF Portal Profile</h2>
+        <p class="form-card-subtitle">Choose your registration role below to proceed with application onboarding.</p>
+      </div>
+
+      <!-- Role Selection -->
+      <div class="reg-role-selector">
+        <button type="button" class="reg-role-btn active" onclick="selectRegRole('patient')" id="reg-btn-patient">
+          <span style="font-size:1.6rem; display:block; margin-bottom:4px;">👤</span>
+          Patient / Beneficiary
+        </button>
+        <button type="button" class="reg-role-btn" onclick="selectRegRole('volunteer')" id="reg-btn-volunteer">
+          <span style="font-size:1.6rem; display:block; margin-bottom:4px;">🤝</span>
+          Volunteer Hero
+        </button>
+        <button type="button" class="reg-role-btn" onclick="selectRegRole('doctor')" id="reg-btn-doctor">
+          <span style="font-size:1.6rem; display:block; margin-bottom:4px;">👨‍⚕️</span>
+          Specialist Doctor
+        </button>
+      </div>
+
+      <!-- Form Container -->
+      <form id="standalone-register-form" onsubmit="handleRegistrationSubmit(event)">
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label class="form-label">Full Name <span class="req">*</span></label>
+            <input type="text" id="reg-name" class="form-input" placeholder="e.g. Amina Khatun" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number <span class="req">*</span></label>
+            <input type="tel" id="reg-phone" class="form-input" placeholder="e.g. +91 98765 43210" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label class="form-label">Email Address <span class="req">*</span></label>
+            <input type="email" id="reg-email" class="form-input" placeholder="e.g. beneficiary@example.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">City / Region <span class="req">*</span></label>
+            <input type="text" id="reg-city" class="form-input" placeholder="e.g. New Delhi" required>
+          </div>
+        </div>
+
+        <div class="form-grid-2col">
+          <div class="form-group">
+            <label class="form-label">Create Portal Password <span class="req">*</span></label>
+            <input type="password" id="reg-password" class="form-input" placeholder="Minimum 6 characters" minlength="6" required value="Pass@2026">
+          </div>
+          <div class="form-group" id="group-role-meta">
+            <label class="form-label" id="label-role-meta">Gender / Category</label>
+            <select id="reg-gender" class="form-select">
+              <option value="Female">Female</option>
+              <option value="Male">Male</option>
+              <option value="Other">Other / Child</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group" id="group-patient-specific">
+          <label class="form-label">Requested Healthcare Assistance</label>
+          <select id="reg-aid-type" class="form-select">
+            <option value="Free Prescription Medicines">Free Prescription Medicines</option>
+            <option value="Surgery Financial Aid">Surgery Financial Aid</option>
+            <option value="Diagnostic Tests Aid">Diagnostic Tests & Lab Scans Aid</option>
+            <option value="Emergency Ambulance">24/7 Emergency Ambulance Transit</option>
+            <option value="Doctor Tele-Consultation">Doctor OPD & Tele-Consultation</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Medical Details / Experience Note <span class="req">*</span></label>
+          <textarea id="reg-details" class="form-textarea" placeholder="Describe medical condition or volunteer skillset..." required rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:0.85rem; font-size:1rem;">
+          Submit Application & Generate Digital Reference ID →
+        </button>
+      </form>
+    </div>
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/storage.js"></script>
+  <script>
+    let activeRegRole = 'patient';
+
+    function selectRegRole(role) {
+      activeRegRole = role;
+      document.querySelectorAll('.reg-role-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('reg-btn-' + role)?.classList.add('active');
+
+      const aidGroup = document.getElementById('group-patient-specific');
+      const metaLabel = document.getElementById('label-role-meta');
+      if (role === 'patient') {
+        aidGroup.style.display = 'block';
+        if (metaLabel) metaLabel.textContent = 'Gender / Category';
+      } else if (role === 'volunteer') {
+        aidGroup.style.display = 'none';
+        if (metaLabel) metaLabel.textContent = 'Volunteer Specialty';
+      } else {
+        aidGroup.style.display = 'none';
+        if (metaLabel) metaLabel.textContent = 'Clinical Department';
+      }
+    }
+
+    async function handleRegistrationSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('reg-name').value.trim();
+      const phone = document.getElementById('reg-phone').value.trim();
+      const email = document.getElementById('reg-email').value.trim();
+      const city = document.getElementById('reg-city').value.trim();
+      const password = document.getElementById('reg-password').value;
+      const details = document.getElementById('reg-details').value.trim();
+      const gender = document.getElementById('reg-gender').value;
+
+      // 1. Try backend registration
+      let backendUser = null;
+      if (window.jcfAPI) {
+        try {
+          const res = await window.jcfAPI.register({
+            name, email, password, role: activeRegRole, phone, city,
+            gender, details, aidType: document.getElementById('reg-aid-type')?.value
+          });
+          if (res && res.success && res.user) {
+            backendUser = res.user;
+          }
+        } catch (err) {
+          console.warn('Backend API registration notice:', err.message);
+        }
+      }
+
+      // 2. Local storage registration and session setup
+      if (activeRegRole === 'patient') {
+        const aidType = document.getElementById('reg-aid-type').value;
+        const record = window.jcfStorage.savePatientRequest({
+          name, phone, email, city, details, aidType,
+          age: 35, gender: gender || 'Female', department: 'General Care', priority: 'Urgent'
+        });
+
+        window.jcfStorage.setCurrentUser({
+          id: backendUser?.id || record.id,
+          name,
+          email,
+          phone,
+          city,
+          role: 'patient',
+          aidType
+        });
+
+        alert(`Beneficiary Application Registered!\nReference ID: ${record.id}\nProceeding to your Live Patient Portal.`);
+        window.location.href = `patient-dashboard.html`;
+      } else if (activeRegRole === 'volunteer') {
+        const record = window.jcfStorage.saveVolunteerRegistration({
+          name, phone, email, city, role: 'Community Health Coordinator', skills: details, availability: 'Weekdays & Emergency On-Call'
+        });
+
+        window.jcfStorage.setCurrentUser({
+          id: backendUser?.id || record.id,
+          name,
+          email,
+          phone,
+          city,
+          role: 'volunteer'
+        });
+
+        alert(`Volunteer Registration Successful!\nID: ${record.id}\nWelcome to the JCF Volunteer Relief Network.`);
+        window.location.href = `volunteer-dashboard.html`;
+      } else {
+        const record = window.jcfStorage.saveDoctor({
+          name: name.startsWith('Dr.') ? name : `Dr. ${name}`,
+          specialty: details || 'General Medicine',
+          qualifications: 'MBBS, MD',
+          hospitalAffiliation: 'JCF Healthcare Foundation',
+          phone,
+          email,
+          city
+        });
+
+        window.jcfStorage.setCurrentUser({
+          id: backendUser?.id || record.id,
+          name: record.name,
+          email,
+          phone,
+          city,
+          role: 'doctor'
+        });
+
+        alert(`Specialist Doctor Onboarding Initialized for ${record.name}!\nDoctor Portal Activated.`);
+        window.location.href = `doctor-dashboard.html`;
+      }
+    }
+  </script>
+</body>
+</html>

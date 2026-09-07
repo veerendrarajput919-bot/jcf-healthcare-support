@@ -1,0 +1,25 @@
+{
+  "name": "jcf-healthcare-support",
+  "version": "1.0.0",
+  "description": "Full-Stack Non-Profit Medical & Patient Aid Portal with AI Chatbot and Multi-Role Portals",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js",
+    "seed": "node server/seed.js",
+    "test": "node scratch/test_api_endpoints.js"
+  },
+  "keywords": [
+    "healthcare",
+    "ngo",
+    "patient-aid",
+    "telemedicine",
+    "ai-chatbot"
+  ],
+  "author": "JCF Healthcare Foundation",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2"
+  }
+}

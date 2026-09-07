@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Volunteer Heroes Field Dashboard - JCF Healthcare Support</title>
+  <meta name="description" content="JCF Healthcare Volunteer Portal. Coordinate field medical relief missions, community camps, pharmacy deliveries, and blood donations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230284c7'><path d='M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z'/></svg>">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .dashboard-layout {
+      min-height: 100vh;
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+    }
+    .dash-topbar {
+      background: #ffffff;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0.85rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: 0 2px 10px rgba(15, 41, 66, 0.04);
+    }
+    .dash-main-container {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      flex-grow: 1;
+    }
+    .vol-header-card {
+      background: linear-gradient(135deg, #0369a1 0%, #0d9488 100%);
+      color: #ffffff;
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px -5px rgba(13, 148, 136, 0.25);
+    }
+    .vol-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .vol-kpi-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: 0 4px 15px rgba(15, 41, 66, 0.03);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      transition: var(--transition);
+    }
+    .vol-kpi-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(15, 41, 66, 0.08);
+      border-color: var(--secondary);
+    }
+    .vol-tab-pane {
+      display: none;
+    }
+    .vol-tab-pane.active {
+      display: block;
+      animation: fadeIn 0.25s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 900px) {
+      .vol-kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 600px) {
+      .vol-kpi-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body class="dashboard-layout">
+
+  <!-- Topbar Header -->
+  <header class="dash-topbar">
+    <a href="../index.html" class="brand-logo" title="Back to JCF Healthcare Support Home">
+      <div class="logo-icon-box">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+          <path d="M12 7v6M9 10h6"/>
+        </svg>
+      </div>
+      <div class="logo-text-group">
+        <span class="logo-title">JCF Healthcare</span>
+        <span class="logo-tag">Volunteer Heroes Desk</span>
+      </div>
+    </a>
+
+    <div style="display:flex; align-items:center; gap:0.85rem;">
+      <button type="button" class="btn-outline-sm btn-avail-toggle" id="vol-avail-btn" onclick="toggleVolAvail()">
+        🟢 Status: Active & Ready
+      </button>
+      <a href="../index.html" class="btn-outline-sm" title="View Public Website">🌐 Main Site</a>
+      <button type="button" class="btn-outline-danger-sm" onclick="logoutVolunteer()">🚪 Sign Out</button>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="dash-main-container">
+    
+    <!-- Volunteer Header Card -->
+    <div class="vol-header-card">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1.25rem;">
+        <div style="display:flex; align-items:center; gap:1.25rem;">
+          <div style="width:68px; height:68px; border-radius:50%; background:#ffffff; color:var(--secondary); display:flex; align-items:center; justify-content:center; font-size:2.4rem; border:3px solid #99f6e4; box-shadow:0 6px 20px rgba(0,0,0,0.15);">
+            🤝
+          </div>
+          <div>
+            <span style="background:rgba(255,255,255,0.2); padding:3px 10px; border-radius:var(--radius-full); font-size:0.75rem; font-weight:700; text-transform:uppercase;">Verified Field Hero • 4.9 ⭐ Rating</span>
+            <h1 style="font-size:1.85rem; font-weight:800; margin:0.35rem 0 0.2rem;" id="vol-name-title">Dr. Sameer Siddiqui</h1>
+            <p style="color:#e0f2fe; font-size:0.88rem;">Field Coordinator & Medical Specialist • Assigned Region: New Delhi & Lucknow Zone</p>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button type="button" class="btn-primary" onclick="showVolTab('available')">📋 Browse Available Tasks</button>
+          <button type="button" class="btn-outline" style="background:rgba(255,255,255,0.15); color:#fff; border-color:rgba(255,255,255,0.4);" onclick="showVolTab('assigned')">🏃 View Active Runs</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteer KPI Grid -->
+    <div class="vol-kpi-grid">
+      <div class="vol-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-orange">📋</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Available Field Tasks</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--dark-navy);" id="kpi-vol-avail-tasks">4</div>
+        </div>
+      </div>
+
+      <div class="vol-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-teal">🏃</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Tasks Assigned to Me</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--primary);" id="kpi-vol-my-tasks">3</div>
+        </div>
+      </div>
+
+      <div class="vol-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-green">✅</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Completed Missions</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--success-green);" id="kpi-vol-completed">18</div>
+        </div>
+      </div>
+
+      <div class="vol-kpi-card">
+        <div class="dash-kpi-icon kpi-icon-blue">❤️</div>
+        <div>
+          <span style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Families Assisted</span>
+          <div style="font-size:1.65rem; font-weight:800; color:var(--secondary);" id="kpi-vol-families">150+</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volunteer Navigation Tabs -->
+    <div class="dash-tabs-nav">
+      <button type="button" class="dash-tab-btn active" onclick="showVolTab('assigned')" id="tab-vol-assigned">
+        🏃 My Assigned Tasks (<span id="tab-vol-assigned-count">3</span>)
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showVolTab('available')" id="tab-vol-available">
+        📋 Available Community Tasks
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showVolTab('blood-roster')" id="tab-vol-blood-roster">
+        🩸 Blood & Emergency Roster
+      </button>
+      <button type="button" class="dash-tab-btn" onclick="showVolTab('history')" id="tab-vol-history">
+        📜 Completed History & Hours
+      </button>
+    </div>
+
+    <!-- Tab 1: MY ASSIGNED TASKS -->
+    <div class="vol-tab-pane active" id="pane-vol-assigned">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Active Field Tasks & Patient Deliveries</h3>
+          <span class="badge-pill-cyan">3 Active Cases</span>
+        </div>
+        <div id="volunteer-tasks-container">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: AVAILABLE COMMUNITY TASKS -->
+    <div class="vol-tab-pane" id="pane-vol-available">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Community Outreach Missions Awaiting Volunteers</h3>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:1rem;">
+          
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <span class="status-badge status-urgent">Urgent Mission</span>
+              <h4 style="font-size:1.1rem; margin:4px 0;">Free OPD & Pediatric Health Camp</h4>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Location: <strong>Seelampur Community Hall, New Delhi</strong> • Date: <strong>12th Sep 2026</strong></p>
+              <small style="color:var(--primary); font-weight:600;">Roles Needed: 2 Doctors, 3 Paramedics, 4 Camp Logistics Volunteers</small>
+            </div>
+            <button type="button" class="btn-primary-sm" onclick="acceptAvailableTask('Free OPD Health Camp')">✓ Accept Task</button>
+          </div>
+
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <span class="status-badge status-emergency">Emergency Blood Alert</span>
+              <h4 style="font-size:1.1rem; margin:4px 0;">O-Negative Platelet Coordination</h4>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Location: <strong>AIIMS Pediatric Oncology Wing</strong> • Date: <strong>Immediate (Today)</strong></p>
+              <small style="color:var(--emergency-red); font-weight:600;">Volunteer needed to coordinate verified donor transit & hospital registration.</small>
+            </div>
+            <button type="button" class="btn-primary-sm" onclick="acceptAvailableTask('O-Negative Platelet Coordination')">✓ Accept Task</button>
+          </div>
+
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem;">
+            <div>
+              <span class="status-badge status-approved">Medicine Bank Run</span>
+              <h4 style="font-size:1.1rem; margin:4px 0;">Doorstep Insulin & Strips Delivery</h4>
+              <p style="font-size:0.85rem; color:var(--text-muted);">Location: <strong>Old City Lucknow Hub</strong> • Date: <strong>10th Sep 2026</strong></p>
+              <small style="color:var(--primary); font-weight:600;">Deliver monthly diabetes cold-chain pack to 8 elderly patients.</small>
+            </div>
+            <button type="button" class="btn-primary-sm" onclick="acceptAvailableTask('Doorstep Insulin Delivery')">✓ Accept Task</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: BLOOD & EMERGENCY ROSTER -->
+    <div class="vol-tab-pane" id="pane-vol-blood-roster">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Rare Blood Group Donors & Emergency Roster</h3>
+        </div>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+              <strong>Amitabh Sen</strong>
+              <span class="priority-pill priority-emergency" style="font-size:0.75rem;">O+ Rare Platelets</span>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted);">Kolkata • Donated platelets 18+ times</p>
+            <p style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-top:4px;">+91 98300 77889</p>
+          </div>
+
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; background:var(--bg-subtle);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem;">
+              <strong>Kavita Joshi</strong>
+              <span class="priority-pill priority-urgent" style="font-size:0.75rem;">B+ Whole Blood</span>
+            </div>
+            <p style="font-size:0.85rem; color:var(--text-muted);">New Delhi • Community Outreach Team</p>
+            <p style="font-size:0.85rem; font-weight:700; color:var(--primary); margin-top:4px;">+91 97110 88990</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: HISTORY -->
+    <div class="vol-tab-pane" id="pane-vol-history">
+      <div class="admin-card-panel">
+        <div class="admin-panel-header">
+          <h3>Volunteer Hours & Completed Missions Log</h3>
+          <button type="button" class="btn-outline-sm" onclick="alert('Downloading JCF Humanitarian Volunteer Certificate...')">📜 Download Service Certificate</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.75rem;">
+          <div style="display:flex; justify-content:space-between; padding:0.85rem; background:var(--bg-subtle); border-radius:var(--radius-sm); border:1px solid #e2e8f0;">
+            <div>
+              <strong>Sunita Devi (JCF-PAT-5119)</strong>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin:2px 0;">SRL Diagnostic test voucher delivery & medical report coordination.</p>
+            </div>
+            <span style="font-size:0.8rem; color:var(--success-green); font-weight:700;">Completed (30th Aug 2026)</span>
+          </div>
+
+          <div style="display:flex; justify-content:space-between; padding:0.85rem; background:var(--bg-subtle); border-radius:var(--radius-sm); border:1px solid #e2e8f0;">
+            <div>
+              <strong>North Delhi Free Medical Camp</strong>
+              <p style="font-size:0.82rem; color:var(--text-muted); margin:2px 0;">Triage and doctor OPD coordination for 85 patients.</p>
+            </div>
+            <span style="font-size:0.8rem; color:var(--success-green); font-weight:700;">Completed (24th Aug 2026)</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../js/api.js"></script>
+  <script src="../js/storage.js"></script>
+  <script>
+    function showVolTab(tabId) {
+      document.querySelectorAll('.vol-tab-pane').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.dash-tab-btn').forEach(b => b.classList.remove('active'));
+      
+      document.getElementById('pane-vol-' + tabId)?.classList.add('active');
+      document.getElementById('tab-vol-' + tabId)?.classList.add('active');
+    }
+
+    function toggleVolAvail() {
+      const user = window.jcfStorage.getCurrentUser();
+      const volId = user?.id || 'VOL-1044';
+      const btn = document.getElementById('vol-avail-btn');
+      const isAvail = btn.textContent.includes('Active');
+      const newStatus = isAvail ? 'On-Break' : 'Verified & Active';
+      btn.textContent = isAvail ? '🟡 Status: On-Break' : '🟢 Status: Active & Ready';
+      if (window.jcfAPI) {
+        window.jcfAPI.updateVolunteerStatus(volId, newStatus).catch(() => {});
+      }
+      alert(`Volunteer availability set to: ${newStatus}`);
+    }
+
+    function renderVolunteerDashboard() {
+      const user = window.jcfStorage.getCurrentUser();
+      const volName = user?.name || 'Dr. Sameer Siddiqui';
+      const patients = window.jcfStorage.getPatientRequests();
+      
+      let assignedCases = patients.filter(p => p.assignedVolunteerName && p.assignedVolunteerName.toLowerCase().includes(volName.split(' ')[0].toLowerCase()));
+      if (assignedCases.length === 0) {
+        assignedCases = patients.filter(p => p.status === 'Approved' || p.status === 'In Progress' || p.assignedVolunteerName);
+      }
+      if (assignedCases.length === 0) {
+        assignedCases = patients.slice(0, 3);
+      }
+
+      const titleEl = document.getElementById('vol-name-title');
+      if (titleEl) titleEl.textContent = volName;
+
+      const myTasksEl = document.getElementById('kpi-vol-my-tasks');
+      if (myTasksEl) myTasksEl.textContent = assignedCases.length;
+      const tabBadge = document.getElementById('tab-vol-assigned-count');
+      if (tabBadge) tabBadge.textContent = assignedCases.length;
+
+      const tasksContainer = document.getElementById('volunteer-tasks-container');
+      if (tasksContainer) {
+        tasksContainer.innerHTML = assignedCases.map(c => `
+          <div style="border:1px solid #e2e8f0; border-radius:var(--radius-md); padding:1.25rem; margin-bottom:1rem; background:var(--bg-subtle);">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem;">
+              <div>
+                <span class="status-badge status-${(c.status || 'pending').toLowerCase().replace(/\s+/g, '-')}">${c.status}</span>
+                <h4 style="font-size:1.15rem; margin:4px 0;">${c.name} (${c.city})</h4>
+                <small style="color:var(--text-muted); font-weight:600;">Phone: ${c.phone} • Ref: ${c.id}</small>
+              </div>
+              <span class="priority-pill priority-${(c.priority || 'normal').toLowerCase()}">${c.priority} Priority</span>
+            </div>
+            
+            <p style="font-size:0.85rem; color:var(--primary); font-weight:600;">Requested Aid: ${c.aidType} (${c.department || 'General'})</p>
+            <p style="font-size:0.85rem; color:var(--text-muted); margin:4px 0 0.75rem;">"${c.details}"</p>
+
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <button type="button" class="btn-primary-sm" onclick="markTaskStatus('${c.id}', 'In Progress')">🚚 Mark Out for Delivery</button>
+              <button type="button" class="btn-success-sm" onclick="markTaskStatus('${c.id}', 'Completed')">✅ Mark Completed & Handed Over</button>
+              <button type="button" class="btn-outline-sm" onclick="alert('Calling patient attendant at ${c.phone}')">📞 Call Beneficiary</button>
+            </div>
+          </div>
+        `).join('');
+      }
+    }
+
+    function markTaskStatus(patientId, newStatus) {
+      const user = window.jcfStorage.getCurrentUser();
+      const volName = user?.name || 'Volunteer Coordinator';
+      window.jcfStorage.updatePatientStatus(patientId, newStatus, `Volunteer ${volName} updated status to ${newStatus}.`);
+      alert(`Patient case ${patientId} updated to: ${newStatus}!`);
+      renderVolunteerDashboard();
+    }
+
+    function acceptAvailableTask(taskTitle) {
+      alert(`Task "${taskTitle}" accepted! Added to your active relief runs.`);
+      showVolTab('assigned');
+    }
+
+    function logoutVolunteer() {
+      window.jcfStorage.logout();
+      window.location.href = '../login.html';
+    }
+
+    window.addEventListener('DOMContentLoaded', renderVolunteerDashboard);
+  </script>
+</body>
+</html>
