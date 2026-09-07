@@ -1186,7 +1186,7 @@ button, input, select, textarea {
 
 .pill-2 {
   top: 20px;
-  right: -12px;
+  right: 20px;
   animation-delay: 2s;
 }
 
