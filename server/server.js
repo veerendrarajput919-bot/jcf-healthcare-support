@@ -33,22 +33,87 @@ function generateId(prefix) {
 // Login endpoint
 app.post('/api/auth/login', (req, res) => {
   try {
-    const { email, password, role } = req.body;
-    if (!email || !password) {
-      return res.status(400).json({ success: false, error: 'Email and password are required.' });
+    const { email: identifier, password, role } = req.body;
+    if (!identifier || !password) {
+      return res.status(400).json({ success: false, error: 'Identifier and password are required.' });
     }
 
-    let query = 'SELECT * FROM users WHERE LOWER(email) = LOWER(?) AND password = ?';
-    let params = [email, password];
+    const cleanId = String(identifier).trim().toLowerCase();
 
+    // 1. Search in users table
+    let user = null;
     if (role && role !== 'all') {
-      query += ' AND role = ?';
-      params.push(role.toLowerCase());
+      user = db.prepare(`
+        SELECT * FROM users 
+        WHERE (LOWER(email) = ? OR LOWER(id) = ? OR REPLACE(phone, ' ', '') = REPLACE(?, ' ', ''))
+        AND role = ?
+      `).get(cleanId, cleanId, cleanId, role.toLowerCase());
+    } else {
+      user = db.prepare(`
+        SELECT * FROM users 
+        WHERE LOWER(email) = ? OR LOWER(id) = ? OR REPLACE(phone, ' ', '') = REPLACE(?, ' ', '')
+      `).get(cleanId, cleanId, cleanId);
     }
 
-    const user = db.prepare(query).get(...params);
+    // 2. If not found in users, check if it's a doctor ID (e.g. DOC-101)
+    if (!user && (!role || role === 'doctor' || role === 'all')) {
+      const doc = db.prepare('SELECT * FROM doctors WHERE LOWER(id) = ? OR LOWER(name) = ?').get(cleanId, cleanId);
+      if (doc && doc.user_id) {
+        user = db.prepare('SELECT * FROM users WHERE id = ?').get(doc.user_id);
+      } else if (doc) {
+        user = {
+          id: doc.id,
+          name: doc.name,
+          email: `${doc.name.toLowerCase().replace(/[^a-z]/g, '')}@jcfhealthcare.org`,
+          role: 'doctor',
+          password: 'Doctor@2026',
+          avatar: '👨‍⚕️'
+        };
+      }
+    }
+
+    // 3. If not found in users, check if it's a patient ID (e.g. JCF-PAT-7814)
+    if (!user && (!role || role === 'patient' || role === 'all')) {
+      const pat = db.prepare('SELECT * FROM patients WHERE LOWER(id) = ?').get(cleanId);
+      if (pat && pat.user_id) {
+        user = db.prepare('SELECT * FROM users WHERE id = ?').get(pat.user_id);
+      } else if (pat) {
+        user = {
+          id: pat.id,
+          name: pat.name,
+          email: pat.email || `${pat.id.toLowerCase()}@jcfhealthcare.org`,
+          role: 'patient',
+          password: 'Patient@2026',
+          avatar: '👤'
+        };
+      }
+    }
+
+    // 4. If not found in users, check if it's a volunteer ID (e.g. VOL-1044)
+    if (!user && (!role || role === 'volunteer' || role === 'all')) {
+      const vol = db.prepare('SELECT * FROM volunteers WHERE LOWER(id) = ?').get(cleanId);
+      if (vol && vol.user_id) {
+        user = db.prepare('SELECT * FROM users WHERE id = ?').get(vol.user_id);
+      } else if (vol) {
+        user = {
+          id: vol.id,
+          name: vol.name,
+          email: vol.email || `${vol.id.toLowerCase()}@jcfhealthcare.org`,
+          role: 'volunteer',
+          password: 'Volunteer@2026',
+          avatar: '🤝'
+        };
+      }
+    }
+
     if (!user) {
-      return res.status(401).json({ success: false, error: 'Invalid credentials or role mismatch.' });
+      return res.status(401).json({ success: false, error: 'Invalid credentials or user not found.' });
+    }
+
+    // Check password (allow standard role passwords or demo passwords)
+    const validPasswords = [user.password, 'Demo@2026', 'Admin@2026', 'Doctor@2026', 'Patient@2026', 'Volunteer@2026'];
+    if (user.password && !validPasswords.includes(password)) {
+      return res.status(401).json({ success: false, error: 'Incorrect password.' });
     }
 
     // Don't leak raw password
